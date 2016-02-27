@@ -3,6 +3,7 @@ var app = express();
 var passport = require('passport');
 var flash = require('connect-flash');
 var port = process.env.PORT || 3000;
+var cors = require('cors');
 
 var morgan = require('morgan');
 var cookieParser = require('cookie-parser');
@@ -10,6 +11,7 @@ var bodyParser = require('body-parser');
 var session = require('express-session');
 
 // Sets up database and tables, and also exposes getting/setting functions
+app.use(cors());
 app.use(morgan('dev'));
 app.use(cookieParser());
 app.use(bodyParser.urlencoded({extended: false}));
