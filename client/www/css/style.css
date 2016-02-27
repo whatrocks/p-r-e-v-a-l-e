@@ -1,0 +1,7 @@
+body {
+  background-color: '#0D0019'
+}
+
+#map {
+  position:absolute; top:40px; bottom:0; width:100%;
+}
