@@ -42,14 +42,26 @@ module.exports = function (app, passport) {
   });
 
   // Facebook authentication route
-  app.get('/auth/facebook', passport.authenticate('facebook', {scope: 'email'}));
+  app.get('/auth/facebook', passport.authenticate('facebook', {scope: ['email', 'user_friends']}));
 
   // Facebook callback route
   app.get('/auth/facebook/callback',
     passport.authenticate('facebook', {
-      successRedirect: '/',
       failureRedirect: '/'
-    }));
+    }),
+    // On success, send back the token
+    function (req, res) {
+      res.json(req.user);
+    }
+    // // On error, force auth again
+    // function (err, req, res, next) {
+    //   res.redirect('/auth/facebook');
+    //   if (err) {
+    //     res.status(400);
+    //     res.render('error', {message: err.message});
+    //   }
+    // }
+  );
 
   // Logout route
   app.get('/logout', function (req, rest) {

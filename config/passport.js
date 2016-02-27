@@ -25,7 +25,7 @@ module.exports = function (passport) {
       if (accessToken !== null) {
         r
           .table('users')
-          .getAll(profile.id, {index: 'facebook_id'})
+          .getAll(profile.id, {index: 'id'})
           .run(r.conn)
           .then(function (cursor) {
             return cursor.toArray()
@@ -34,38 +34,36 @@ module.exports = function (passport) {
                   return done(null, users[0]);
                 } else {
                   return r.table('users')
-                    .insert(profileMap(profile))
+                    .insert(profileMap(profile, accessToken), {returnChanges: true})
                     .run(r.conn)
                     .then(function (response) {
-                      return r.table('users')
-                        .get(response.generated_keys[0])
-                        .run(r.conn);
-                    })
-                    .then(function (newUser) {
-                      done(null, newUser);
+                      console.log('response: ', response.changes[0].new_val);
+                      done(null, response.changes[0].new_val);
                     });
                 }
               });
           })
           .catch(function (err) {
             console.log('Error getting user: ', err);
+            done(err);
           });
       }
     };
   };
 
-  var url = 'http://' + config.url + ':' + config.ports.local + '/auth/login/callback';
+  var url = 'http://' + config.url + ':' + config.ports.local + '/auth/facebook/callback';
 
   passport.use(new FacebookStrategy({
       clientID: config.facebook.clientID,
       clientSecret: config.facebook.clientSecret,
-      callbackURL: url
+      callbackURL: url,
+      enableProof: true
     },
-    loginCallbackHandler(function (profile) {
+    loginCallbackHandler(function (profile, token) {
       return {
-        'login': profile.username,
+        'id': profile.id,
         'facebook_token': token,
-        'name': profile.name.givenName + ' ' + profile.name.familyName,
+        'name': profile.displayName,
         'createdAt': r.now()
       };
     })
