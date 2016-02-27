@@ -24,10 +24,10 @@ angular.module('starter.controllers', [])
     $scope.modal.hide();
   };
 
-  // Open the login modal
-  $scope.login = function() {
-    $scope.modal.show();
-  };
+  // // Open the login modal
+  // $scope.login = function() {
+  //   $scope.modal.show();
+  // };
 
   // Perform the login action when the user submits the login form
   $scope.doLogin = function() {
@@ -41,9 +41,9 @@ angular.module('starter.controllers', [])
   };
 })
 
-// .controller('PlaylistsCtrl', function($scope) {
-//   $scope.playlists = [];
-// })
+.controller('PlaylistsCtrl', function($scope) {
+  $scope.playlists = [];
+})
 
 .controller('PlaylistCtrl', function($scope, $stateParams) {
 });

@@ -1,4 +1,8 @@
 {
   "name": "Prevale",
-  "app_id": ""
+  "app_id": "",
+  "proxies": [{
+    "path": "/auth/facebook",
+    "proxyUrl": "http://127.0.0.1:3000/auth/facebook/"
+  }]
 }

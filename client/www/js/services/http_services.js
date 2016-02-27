@@ -32,4 +32,24 @@ angular.module('prevale.httpServices', [])
     sendWaypoints: sendWaypoints
   }
 
+})
+
+.factory('Auth', function($http, $location, $window) {
+
+  var signin = function() {
+    console.log("I'm AUTH.signin")
+    return $http({
+      method: 'GET',
+      url: '/auth/facebook',
+      headers: {'Content-Type':'application/JSON'}
+    })
+    .then(function (resp) {
+      return resp.data;
+    });
+  };
+
+  return {
+    signin: signin
+  };
+
 });

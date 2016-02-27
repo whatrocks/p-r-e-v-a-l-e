@@ -59,11 +59,11 @@ angular.module('starter',
     }
   })
 
-  .state('app.browse', {
-      url: '/browse',
+  .state('app.about', {
+      url: '/about',
       views: {
         'menuContent': {
-          templateUrl: 'templates/browse.html'
+          templateUrl: 'templates/about.html'
         }
       }
     })
