@@ -4,6 +4,7 @@ angular.module('starter',
   'starter.controllers', 
   'prevale.mapServices',
   'prevale.httpServices',
+  'prevale.welcomeController',
   'prevale.mapController'
   ])
 
@@ -25,6 +26,12 @@ angular.module('starter',
 
 .config(function($stateProvider, $urlRouterProvider) {
   $stateProvider
+
+  .state('welcome', {
+    url: '/welcome',
+    templateUrl: 'templates/welcome.html',
+    controller: 'WelcomeController'
+  })
 
   .state('app', {
     url: '/app',
@@ -71,5 +78,5 @@ angular.module('starter',
     }
   });
   // if none of the above states are matched, use this as the fallback
-  $urlRouterProvider.otherwise('/app/map');
+  $urlRouterProvider.otherwise('/welcome');
 });

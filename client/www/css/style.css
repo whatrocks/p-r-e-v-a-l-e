@@ -5,3 +5,24 @@ body {
 #map {
   position:absolute; top:40px; bottom:0; width:100%;
 }
+
+#welcome {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  position:absolute; top:0px; bottom:0; width:100%;
+  background-color: tomato;
+}
+
+#welcome h1 {
+  font-family: Arial, sans-serif;
+  color: white;
+  font-weight: bold;
+  font-size: 75px;
+}
+
+#welcome button {
+  font-size: 20px;
+}

@@ -33,11 +33,11 @@ angular.module('prevale.mapServices', [])
         map = L.mapbox.map('map', 'mapbox.streets', {
             zoomControl: false
         })
-        .setView([40, -74.50], 9);
+        // .setView([40, -74.50], 9);
 
-        map.touchZoom.disable();
-        map.doubleClickZoom.disable();
-        map.scrollWheelZoom.disable();
+        // map.touchZoom.disable();
+        // map.doubleClickZoom.disable();
+        // map.scrollWheelZoom.disable();
     };
 
     var renderLayer = function(journeyPoints) {
