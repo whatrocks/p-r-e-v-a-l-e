@@ -39,7 +39,7 @@ angular.module('starter',
     url: '/app',
     abstract: true,
     templateUrl: 'templates/menu.html',
-    controller: 'AppCtrl'
+    controller: 'WelcomeController'
   })
 
   .state('app.map', {

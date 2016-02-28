@@ -6,6 +6,7 @@ module.exports = function (app, passport) {
 
   // Create a new user
   app.post('/api/users/create', function (req, res) {
+    console.log('req:', req );
     console.log('body: ', req.body);
     var username = req.body.username;
     var password = req.body.password;

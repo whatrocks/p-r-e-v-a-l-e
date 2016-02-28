@@ -15,6 +15,8 @@ app.use(cors());
 app.use(morgan('dev'));
 app.use(cookieParser());
 app.use(bodyParser.urlencoded({extended: true}));
+app.use(bodyParser.json());
+
 
 require('../config/passport.js')(passport);
 
