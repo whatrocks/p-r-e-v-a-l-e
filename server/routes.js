@@ -10,7 +10,7 @@ module.exports = function (app, passport) {
   app.post('/api/users/create', function (req, res) {
     var user = req.body;
     if (!user) {
-      res.send(400);
+      res.status(400).send('Missing parameters');
     }
     user.createdAt = r.now();
 
@@ -45,7 +45,7 @@ module.exports = function (app, passport) {
     var password = req.body.password;
 
     if (!(username && password)) {
-      res.send(400);
+      res.status(400).send('Missing parameters');
     }
     r
     .table('users')
@@ -75,7 +75,7 @@ module.exports = function (app, passport) {
   app.post('/api/journeys/create', function (req, res) {
     var journey = req.body;
     if (!journey) {
-      res.send(400);
+      res.status(400).send('Missing parameters');
     }
     journey.createdAt = r.now();
     journey.coordinates = [];
@@ -104,7 +104,7 @@ module.exports = function (app, passport) {
     var id = req.body.id;
     var newCoords = req.body.coords;
     if (!(id && newCoords)) {
-      res.send(400);
+      res.status(400).send('Missing parameters');
     }
 
     r
@@ -120,7 +120,7 @@ module.exports = function (app, passport) {
       })
       .then(function (results) {
         if (results) {
-          res.send(201)
+          res.status(201).send('Success');
         }
       })
       .catch(function (err) {
@@ -132,7 +132,7 @@ module.exports = function (app, passport) {
   app.get('/api/journeys/:id', function (req, res) {
     var journeyId = req.params.id;
     if (!(journeyId)) {
-      res.send(400);
+      res.status(400).send('Missing parameters');
     }
 
     r
@@ -155,7 +155,7 @@ module.exports = function (app, passport) {
   app.get('/api/journeys/userHistory/:id', function (req, res) {
     var userId = req.params.id;
     if (!(userId)) {
-      res.send(400);
+      res.status(400).send('Missing parameters');
     }
 
     r
@@ -174,7 +174,8 @@ module.exports = function (app, passport) {
               return journey.coordinates;
             })
             .flatten()
-            .uniq();
+            .uniq()
+            .value();
 
             res.send(allCoords);
           } else {
@@ -217,20 +218,35 @@ module.exports = function (app, passport) {
   app.get('/api/destinationSearch', function (req, res) {
     var currentLocation = req.query.currentLocation;
     var keyword = req.query.keyword;
-    if (!(currentLocation && keyword)) {
-      res.send(400);
+    // Convert miles to meters
+    var distanceInMeters = req.query.distance * 1609;
+    if (!(currentLocation && keyword && distanceInMeters)) {
+      res.status(400).send('Missing parameters');
     }
-
-    var baseUrl = 'https://api.foursquare.com/v2/venues/explore?client_id=' + config.foursquare.clientID  + '&client_secret=' + config.foursquare.clientSecret;
-    var fullQuery = baseUrl + '&ll=' + currentLocation + '&query=' + keyword + '&v=20160227&m=foursquare';
-
     request({
       method: 'GET',
-      uri: fullQuery,
-      json: true
+      uri: 'https://api.foursquare.com/v2/venues/explore',
+      json: true,
+      qs: {
+        client_id: config.foursquare.clientID,
+        client_secret: config.foursquare.clientSecret,
+        ll: currentLocation,
+        query: keyword,
+        v: '20160227',
+        m: 'foursquare',
+        limit: 50,
+        radius: distanceInMeters + 200,
+        openNow: 1
+      }
     }, function (error, resp, body) {
       if (!error && resp.statusCode == 200) {
-        var topResult = body.response.groups[0].items[0].venue;
+        // Filter - greater than half a mile, less than 3
+        var lowerBound = distanceInMeters - 1600 < 0 ? 0 : distanceInMeters - 1600;
+        console.log('lowerbound: ', lowerBound);
+        var topResult = _.find(body.response.groups[0].items,
+          function (item) {
+            return item.venue.location.distance >= lowerBound;
+          });
         res.send(topResult);
       }
     });
@@ -238,17 +254,25 @@ module.exports = function (app, passport) {
 
   // ArcGIS route for directions and waypoint calculation
   app.get('/api/routeInfo', function (req, res) {
+    var start = req.query.start;
+    var destination = req.query.destination;
+    console.log('params: ', req.query);
+    console.log('start: ', start);
+    console.log('destination: ', destination);
+    if (!(start && destination)) {
+      res.status(400).send('Missing parameters');
+    }
 
     function getToken(callback){
       request.post({
         url: 'https://www.arcgis.com/sharing/rest/oauth2/token/',
         json:true,
         form: {
-          'f': 'json',
-          'client_id': config.arcgis.clientID,
-          'client_secret': config.arcgis.clientSecret,
-          'grant_type': 'client_credentials',
-          'expiration': '1440'
+          f: 'json',
+          client_id: config.arcgis.clientID,
+          client_secret: config.arcgis.clientSecret,
+          grant_type: 'client_credentials',
+          expiration: '1440'
         }
       }, function(error, response, body){
         callback(body.access_token);
@@ -262,14 +286,23 @@ module.exports = function (app, passport) {
         form: {
           f: 'json',
           token: token,
-          stops: '-122.4079,37.78356;-122.404,37.782' //FIXME
+          stops: start + ';' + destination
         }
       }, function(error, response, body){
         var directions = body.directions[0].features;
-        var decompressedPoints = directions.map(function (element) {
+        // Convert compressed geometry to lat/long and flatten out waypoints
+        var decompressedPoints = _
+        .chain(directions)
+        .map(function (element) {
           return decompress(element.compressedGeometry);
-        });
-        console.log(decompressedPoints);
+        })
+        .flatten()
+        // Dirty array comparison
+        .uniqBy(function (tuple) {
+          return JSON.stringify(tuple);
+        })
+        .value();
+        console.log('Checkpoints: ', decompressedPoints);
         res.send(decompressedPoints);
       });
     });
