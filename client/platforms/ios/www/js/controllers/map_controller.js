@@ -12,26 +12,30 @@ angular.module('prevale.mapController', [])
   RenderMap.mapInit();
 
   if ( window.localStorage.getItem('waypoints')) {
-    console.log("localStorage.waypoints: ", window.localStorage.getItem('waypoints'));
+    console.log("localStorage: ", window.localStorage);
     // waypoints = JSON.parse(window.localStorage.getItem('waypoints'));
     // RenderMap.renderLayer(waypoints);
   }
 
   $interval(function() {
     console.log("interval fires");
-    // console.log("localStorage.waypoints: ", window.localStorage.getItem('waypoints'));
+    console.log("localStorage waypoints: ", window.localStorage.getItem('waypoints'));
     waypoints = JSON.parse(window.localStorage.getItem('waypoints'));
     RenderMap.renderLayer(waypoints);
-  }, 5000);
+  }, 30000);
+
+  var initialJourneyID = window.localStorage.getItem('initialJourney-id');
 
   // Get waypoints from server and save in local storage
-  Waypoints.getWaypoints(function(data) {
-    var newData = [[40, -74.50],[40.1, -74.50],[40.2, -74.50]];
+  Waypoints.getWaypoints(initialJourneyID, function(data) {
+    // var newData = [[40, -74.50],[40.1, -74.50],[40.2, -74.50]];
+
+    console.log("getWaypoints data: ", data);
     
-    window.localStorage.waypoints = (JSON.stringify(newData));
+    window.localStorage.waypoints = (JSON.stringify(data.coordinates));
     // window.localStorage.waypoints = (JSON.stringify(data.waypoints));
 
-    waypoints = JSON.parse(window.localStorage.waypoints);
+    waypoints = JSON.parse(window.localStorage.getItem('waypoints'));
     
     navigator.geolocation.watchPosition(function(position) {      
       if (initRender) {
@@ -44,6 +48,7 @@ angular.module('prevale.mapController', [])
       } else {
         console.log("ELSE");
         CoordinateFilter.handleCoordinate(position);
+        // RenderMap.centerView();
       }
     }, function(error) {
       console.log(error)

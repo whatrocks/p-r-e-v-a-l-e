@@ -7,7 +7,7 @@ module.exports = function (app, passport) {
   // Create a new user
   app.post('/api/users/create', function (req, res) {
     var user = req.body;
-    if (!(username && password)) {
+    if (!user) {
       res.send(400);
     }
     user.createdAt = r.now();
@@ -98,6 +98,7 @@ module.exports = function (app, passport) {
 
   // Add coordinates to a pre-existing journey
   app.post('/api/journeys/addTo', function (req, res) {
+    console.log('req.body: ', req.body);
     var id = req.body.id;
     var newCoords = req.body.coords;
     if (!(id && newCoords)) {

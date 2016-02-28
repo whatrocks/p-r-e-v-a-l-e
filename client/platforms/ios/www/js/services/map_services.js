@@ -4,10 +4,13 @@ angular.module('prevale.mapServices', [])
     var waypointsToBeSent = {waypoints: []};
 
     var handleCoordinate = function (position) {
+        console.log("HANDLE COORDINATE");
+        console.log("position is: ", position);
         var coordinateTuple = [];
-        coordinateTuple[0] = position.coords.latitude;
-        coordinateTuple[1] = position.coords.longitude;
+        coordinateTuple.push(position.coords.latitude);
+        coordinateTuple.push(position.coords.longitude);
         if (shouldStoreCoordinate(coordinateTuple)) {
+            console.log("I should store coordinate");
             storeCoordinate(coordinateTuple);
         }
     };
@@ -15,27 +18,30 @@ angular.module('prevale.mapServices', [])
     var storeCoordinate = function(coordinate) {
         console.log("Im in storeCoordinate");
         var temp = window.localStorage.getItem('waypoints');
+        console.log("temp is: ", temp);
         temp = (temp === null) ? [] : JSON.parse(temp);
-        temp.push(cooordinate);
+        temp.push(coordinate);
         window.localStorage.setItem('waypoints', JSON.stringify(temp));
 
         waypointsToBeSent.waypoints.push(coordinate);
 
         var journeyWaypoints = {
             id: window.localStorage.getItem('initialJourney-id'),
-            newCoords: waypointsToBeSent.waypoints
+            coords: waypointsToBeSent.waypoints
         };
 
-        if (waypointsToBeSent.waypoints.length > 2) {
+        console.log("journeyWaypoints to be sent: ", journeyWaypoints);
+
+        // if (waypointsToBeSent.waypoints.length > 2) {
             Waypoints.sendWaypoints(journeyWaypoints, function(response) {
                 if (response) {
                     console.log(" successs posting waypoints!!!!");
                 } else {
-                    console.error("error on store Coord");
+                    console.log("error on store Coord");
                 }
                 waypointsToBeSent.waypoints = [];
             });
-        }
+        // }
     };
 
     var shouldStoreCoordinate = function(coordinate) {
@@ -115,6 +121,8 @@ angular.module('prevale.mapServices', [])
     };
 
     var centerView = function() {
+        console.log("Center View!!");
+        console.log("currentPos:", currentPosition);
         map.setView(currentPosition, zoom);
     };
 
