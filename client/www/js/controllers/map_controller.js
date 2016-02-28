@@ -90,21 +90,26 @@ angular.module('prevale.mapController', [])
           },
           function (reason) {
           });
-            alert(JSON.stringify(response));
             var keyword = response.result.parameters.locations;
             var distance = response.result.parameters.distances;
             Waypoints.sendVoice($scope.currentPosition.join(','), keyword, distance, function(result) {
-              alert(JSON.stringify(result));
-              var markers = [result.data.location.lat, result.data.location.lng];
+
+              var markers = [result.data.venue.location.lat, result.data.venue.location.lng];
               var payload = {
                 destination: result,
                 user: $window.localStorage.getItem('user-id'),
                 coordinates: []
               }
+              // alert(markers)
               RenderMap.displayGoal(markers);
-              Waypoints.createJourney(result).then(function(journey) {
-                Waypoints.getCheckpoints($scope.currentPosition.join(','), markers.join(',')).then(function(response) {
-                  alert(JSON.stringify(response));
+              Waypoints.createJourney(payload).then(function(journey) {
+                var lonlatOne = [$scope.currentPosition[1], $scope.currentPosition[0]];
+                var lonlatTwo = [markers[1], markers[0]];
+                Waypoints.getCheckpoints(lonlatOne.join(','), lonlatTwo.join(',')).then(function(response) {
+                  // alert(JSON.stringify(response));
+                  // alert(JSON.stringify(response));
+                  RenderMap.displayMarkers(response.data);
+                  $window.localStorage.setItem('journeyWaypoints', response.data);
                 });
                 $window.localStorage.setItem('initialJourney-id', journey.id);
               })
