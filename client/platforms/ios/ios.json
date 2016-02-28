@@ -9,7 +9,39 @@
                 "parents": {
                     "/*": [
                         {
-                            "xml": "<feature name=\"InAppBrowser\"><param name=\"ios-package\" value=\"CDVInAppBrowser\" /></feature>",
+                            "xml": "<feature name=\"Device\"><param name=\"ios-package\" value=\"CDVDevice\" /></feature>",
+                            "count": 1
+                        },
+                        {
+                            "xml": "<feature name=\"Console\"><param name=\"ios-package\" value=\"CDVLogger\" /></feature>",
+                            "count": 1
+                        },
+                        {
+                            "xml": "<feature name=\"SplashScreen\"><param name=\"ios-package\" value=\"CDVSplashScreen\" /><param name=\"onload\" value=\"true\" /></feature>",
+                            "count": 1
+                        },
+                        {
+                            "xml": "<feature name=\"StatusBar\"><param name=\"ios-package\" value=\"CDVStatusBar\" /><param name=\"onload\" value=\"true\" /></feature>",
+                            "count": 1
+                        },
+                        {
+                            "xml": "<preference name=\"StatusBarOverlaysWebView\" value=\"true\" />",
+                            "count": 1
+                        },
+                        {
+                            "xml": "<preference name=\"StatusBarStyle\" value=\"lightcontent\" />",
+                            "count": 1
+                        },
+                        {
+                            "xml": "<feature name=\"Keyboard\"><param name=\"ios-package\" onload=\"true\" value=\"IonicKeyboard\" /></feature>",
+                            "count": 1
+                        },
+                        {
+                            "xml": "<feature name=\"ApiAIPlugin\"><param name=\"ios-package\" value=\"ApiAIPlugin\" /></feature>",
+                            "count": 1
+                        },
+                        {
+                            "xml": "<feature name=\"TTS\"><param name=\"ios-package\" value=\"CDVTTS\" /></feature>",
                             "count": 1
                         }
                     ]
@@ -18,22 +50,110 @@
         }
     },
     "installed_plugins": {
-        "cordova-plugin-inappbrowser": {
+        "cordova-plugin-device": {
+            "PACKAGE_NAME": "com.ionicframework.prevale712590"
+        },
+        "cordova-plugin-console": {
             "PACKAGE_NAME": "com.ionicframework.prevale712590"
         },
         "cordova-plugin-whitelist": {
+            "PACKAGE_NAME": "com.ionicframework.prevale712590"
+        },
+        "cordova-plugin-splashscreen": {
+            "PACKAGE_NAME": "com.ionicframework.prevale712590"
+        },
+        "cordova-plugin-statusbar": {
+            "PACKAGE_NAME": "com.ionicframework.prevale712590"
+        },
+        "ionic-plugin-keyboard": {
+            "PACKAGE_NAME": "com.ionicframework.prevale712590"
+        },
+        "cordova-plugin-apiai": {
+            "PACKAGE_NAME": "com.ionicframework.prevale712590"
+        },
+        "cordova-plugin-tts": {
             "PACKAGE_NAME": "com.ionicframework.prevale712590"
         }
     },
     "dependent_plugins": {},
     "modules": [
         {
-            "file": "plugins/cordova-plugin-inappbrowser/www/inappbrowser.js",
-            "id": "cordova-plugin-inappbrowser.inappbrowser",
-            "pluginId": "cordova-plugin-inappbrowser",
+            "file": "plugins/cordova-plugin-device/www/device.js",
+            "id": "cordova-plugin-device.device",
+            "pluginId": "cordova-plugin-device",
             "clobbers": [
-                "cordova.InAppBrowser.open",
-                "window.open"
+                "device"
+            ]
+        },
+        {
+            "file": "plugins/cordova-plugin-console/www/console-via-logger.js",
+            "id": "cordova-plugin-console.console",
+            "pluginId": "cordova-plugin-console",
+            "clobbers": [
+                "console"
+            ]
+        },
+        {
+            "file": "plugins/cordova-plugin-console/www/logger.js",
+            "id": "cordova-plugin-console.logger",
+            "pluginId": "cordova-plugin-console",
+            "clobbers": [
+                "cordova.logger"
+            ]
+        },
+        {
+            "file": "plugins/cordova-plugin-splashscreen/www/splashscreen.js",
+            "id": "cordova-plugin-splashscreen.SplashScreen",
+            "pluginId": "cordova-plugin-splashscreen",
+            "clobbers": [
+                "navigator.splashscreen"
+            ]
+        },
+        {
+            "file": "plugins/cordova-plugin-statusbar/www/statusbar.js",
+            "id": "cordova-plugin-statusbar.statusbar",
+            "pluginId": "cordova-plugin-statusbar",
+            "clobbers": [
+                "window.StatusBar"
+            ]
+        },
+        {
+            "file": "plugins/ionic-plugin-keyboard/www/ios/keyboard.js",
+            "id": "ionic-plugin-keyboard.keyboard",
+            "pluginId": "ionic-plugin-keyboard",
+            "clobbers": [
+                "cordova.plugins.Keyboard"
+            ],
+            "runs": true
+        },
+        {
+            "file": "plugins/cordova-plugin-apiai/www/lib/q.js",
+            "id": "cordova-plugin-apiai.Q",
+            "pluginId": "cordova-plugin-apiai",
+            "runs": true
+        },
+        {
+            "file": "plugins/cordova-plugin-apiai/www/ApiAIPlugin.js",
+            "id": "cordova-plugin-apiai.ApiAIPlugin",
+            "pluginId": "cordova-plugin-apiai",
+            "clobbers": [
+                "window.ApiAIPlugin"
+            ]
+        },
+        {
+            "file": "plugins/cordova-plugin-apiai/www/ApiAIPromises.js",
+            "id": "cordova-plugin-apiai.ApiAIPromises",
+            "pluginId": "cordova-plugin-apiai",
+            "clobbers": [
+                "window.ApiAIPromises"
+            ]
+        },
+        {
+            "file": "plugins/cordova-plugin-tts/www/tts.js",
+            "id": "cordova-plugin-tts.tts",
+            "pluginId": "cordova-plugin-tts",
+            "clobbers": [
+                "TTS"
             ]
         }
     ]

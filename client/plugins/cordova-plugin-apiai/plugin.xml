@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<plugin xmlns="http://apache.org/cordova/ns/plugins/1.0"
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        id="cordova-plugin-apiai"
+        version="1.5.4">
+
+    <name>ApiAiSDK</name>
+
+    <description>Plugin makes it easy to integrate your Cordova application with https://api.ai natural language processing service.</description>
+    <author>api.ai</author>
+    <keywords>language processing,voice recognition</keywords>
+    <license>Apache 2.0 License</license>
+
+    <engines>
+        <engine name="cordova" version=">=5.0.0" />
+    </engines>
+
+    <js-module name="Q" src="www/lib/q.js">
+        <runs/>
+    </js-module>
+
+    <js-module name="ApiAIPlugin" src="www/ApiAIPlugin.js">
+        <clobbers target="window.ApiAIPlugin" />
+    </js-module>
+
+    <js-module name="ApiAIPromises" src="www/ApiAIPromises.js">
+        <clobbers target="window.ApiAIPromises" />
+    </js-module>
+
+    <platform name="ios">
+        <config-file parent="/*" target="config.xml">
+            <feature name="ApiAIPlugin">
+                <param name="ios-package" value="ApiAIPlugin" />
+            </feature>
+        </config-file>
+
+        <!-- public header and source file -->
+
+        <header-file src="libs/ios/api-ai-ios-sdk/ApiAI/ApiAI.h" compiler-flags="-std=gnu99 -fmodules"/>
+        <header-file src="libs/ios/api-ai-ios-sdk/ApiAI/AIRequest.h" compiler-flags="-std=gnu99 -fmodules" />
+        <header-file src="libs/ios/api-ai-ios-sdk/ApiAI/AITextRequest.h" compiler-flags="-std=gnu99 -fmodules" />
+        <header-file src="libs/ios/api-ai-ios-sdk/ApiAI/AIVoiceRequest.h" compiler-flags="-std=gnu99 -fmodules" />
+        <header-file src="libs/ios/api-ai-ios-sdk/ApiAI/AIConfiguration.h" compiler-flags="-std=gnu99 -fmodules" />
+        <header-file src="libs/ios/api-ai-ios-sdk/ApiAI/AIDefaultConfiguration.h" compiler-flags="-std=gnu99 -fmodules" />
+        <header-file src="libs/ios/api-ai-ios-sdk/ApiAI/AIRequestEntity.h" compiler-flags="-std=gnu99 -fmodules" />
+        <header-file src="libs/ios/api-ai-ios-sdk/ApiAI/AIRequestEntry.h" compiler-flags="-std=gnu99 -fmodules" />
+        <header-file src="libs/ios/api-ai-ios-sdk/ApiAI/AINullabilityDefines.h" compiler-flags="-std=gnu99 -fmodules" />
+        <header-file src="libs/ios/api-ai-ios-sdk/ApiAI/AIRequestContext.h" compiler-flags="-std=gnu99 -fmodules" />
+
+        <!-- support header and source file -->
+
+        <header-file src="src/ios/ApiAIPlugin.h" compiler-flags="-std=gnu99 -fmodules" />
+        <source-file src="src/ios/ApiAIPlugin.m" compiler-flags="-std=gnu99 -fmodules" />
+
+        <source-file src="libs/ios/api-ai-ios-sdk/libApiAI.a" framework="true" />
+
+        <framework src="Security.framework" />
+        <framework src="Foundation.framework" />
+        <framework src="CoreAudio.framework" />
+    </platform>
+
+    <!-- Android -->
+
+    <platform name="android">
+        <config-file target="config.xml" parent="/*">
+            <feature name="ApiAIPlugin">
+                <param name="android-package" value="ai.api.ApiAiPlugin"/>
+            </feature>
+        </config-file>
+
+        <config-file target="AndroidManifest.xml" parent="/manifest">
+            <uses-permission android:name="android.permission.INTERNET"/>
+            <uses-permission android:name="android.permission.RECORD_AUDIO"/>
+        </config-file>
+
+         <!-- Apache Cordova 3.x. -->
+        <config-file target="res/xml/config.xml" parent="widget">
+            <feature name="ApiAIPlugin">
+                <param name="android-package" value="ai.api.ApiAiPlugin" />
+            </feature>
+        </config-file>
+
+        <framework src="com.android.support:support-v4:23.0.1" />
+        <framework src="com.google.code.gson:gson:2.3" />
+        <framework src="commons-io:commons-io:2.4" />
+
+        <source-file src="src/android/ApiAiPlugin.java" target-dir="src/ai/api" />
+        <source-file src="libs/ailib.jar" target-dir="libs" />
+    </platform>
+
+</plugin>
