@@ -26,7 +26,7 @@ angular.module('prevale.mapController', [])
       waypoints = JSON.parse(window.localStorage.getItem('waypoints'));
       RenderMap.renderLayer(waypoints);
     }
-  }, 5000);
+  }, 10000);
 
   var initialJourneyID = window.localStorage.getItem('initialJourney-id');
 
@@ -54,6 +54,7 @@ angular.module('prevale.mapController', [])
         initRender = false;
       } else {
         CoordinateFilter.handleCoordinate(position);
+        // RenderMap.handleZoom();
         RenderMap.centerView();
       }
     }, function(error) {

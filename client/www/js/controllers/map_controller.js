@@ -55,7 +55,7 @@ angular.module('prevale.mapController', [])
       } else {
         CoordinateFilter.handleCoordinate(position);
         // RenderMap.handleZoom();
-        RenderMap.centerView();
+        // RenderMap.centerView();
       }
     }, function(error) {
       console.log("navigator didn't work");

@@ -2,8 +2,12 @@
   position:absolute; top:40px; bottom:0; width:100%;
 }
 
+.mapbox-logo{
+    display: none !important;
+}
+
 .prevale-side-bg {
-  background-image: url("../img/prevale-dark-3.png");
+  background-image: url("../img/prevale-bg.png");
 }
 
 .prevale-bg {
@@ -43,6 +47,19 @@
   height: 52px;
   width: 300px;
   margin-bottom: 50px;
+}
+
+.img-logo-side {
+  margin-top: 40px;
+  margin-bottom: 20px;
+  height: 35px;
+  width: 200px;
+}
+
+.side-text {
+  font-family: Arial, sans-serif;
+  font-size: 14px;
+  color: #585858;
 }
 
 #welcome {
