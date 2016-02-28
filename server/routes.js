@@ -87,6 +87,10 @@ module.exports = function (app, passport) {
       })
       .then(function (newJourney) {
         res.json(newJourney);
+      })
+      .catch(function (err) {
+        console.log('Error creating journey: ', err);
+        res.send(err);
       });
   });
 
@@ -107,11 +111,31 @@ module.exports = function (app, passport) {
       })
       .then(function (changes) {
         res.json(changes)
+      })
+      .catch(function (err) {
+        console.log('Error updating journey', err);
+        res.send(err);
       });
   });
 
-  app.get('api/journeys', function (req, res) {
-
+  app.get('/api/journeys/:id', function (req, res) {
+    var journeyId = req.params.id;
+    console.log('journeyId: ', journeyId);
+    r
+      .table('journeys')
+      .get(journeyId)
+      .run(r.conn)
+      .then(function (response) {
+        if (response) {
+          res.json(response);
+        } else {
+          res.status(404).send('A journey with that id was not found')
+        }
+      })
+      .catch(function (err) {
+        console.log('Error getting journey: ', err);
+        res.send(err);
+      });
   });
 
   // Facebook authentication route
