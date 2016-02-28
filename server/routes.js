@@ -217,9 +217,9 @@ module.exports = function (app, passport) {
   app.get('/api/destinationSearch', function (req, res) {
     var currentLocation = req.query.currentLocation;
     var keyword = req.query.keyword;
-    var distance = req.query.distance;
-
-    if (!(currentLocation && keyword && distance)) {
+    // Convert miles to meters
+    var distanceInMeters = req.query.distance * 1609;
+    if (!(currentLocation && keyword && distanceInMeters)) {
       res.send(400);
     }
     request({
@@ -233,12 +233,15 @@ module.exports = function (app, passport) {
         query: keyword,
         v: '20160227',
         m: 'foursquare',
-        radius: distance + 200
+        limit: 50,
+        radius: distanceInMeters + 200,
+        openNow: 1
       }
     }, function (error, resp, body) {
       if (!error && resp.statusCode == 200) {
         // Filter - greater than half a mile, less than 3
-        var lowerBound = distance - 1600 < 0 ? 0 : distance - 1600;
+        var lowerBound = distanceInMeters - 1600 < 0 ? 0 : distanceInMeters - 1600;
+        console.log('lowerbound: ', lowerBound);
         var topResult = _.find(body.response.groups[0].items,
           function (item) {
             return item.venue.location.distance >= lowerBound;
