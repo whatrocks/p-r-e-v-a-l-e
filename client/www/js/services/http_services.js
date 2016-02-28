@@ -30,20 +30,20 @@ angular.module('prevale.httpServices', [])
   return {
     getWaypoints: getWaypoints,
     sendWaypoints: sendWaypoints
-  }
+  };
 
 })
 
 .factory('Auth', function($http, $location, $window) {
 
-  var signin = function() {
-    console.log("I'm AUTH.signin")
+  var signin = function (user) {
     return $http({
-      method: 'GET',
-      url: '/auth/facebook',
-      headers: {'Content-Type':'application/JSON'}
+      method: 'POST',
+      url: 'http://localhost:3000/auth/', // ASK NATE
+      data: user
     })
     .then(function (resp) {
+      console.log("resp is :", resp);
       return resp.data;
     });
   };

@@ -1,21 +1,18 @@
 angular.module('prevale.welcomeController', [])
-.controller('WelcomeController', function($scope, $state, $window, $location, Auth){
+.controller('WelcomeController', function($scope, $state, $http, $window, $location, Auth){
 
-  $scope.facebookSignin = function() {
-    console.log("trying to sign in");
-    // $window.location.href = 'http://www.google.com';
-    // $window.location.href = 'http://127.0.0.1:3000/auth/facebook';
-    Auth.signin()
-      .then(function(data) { 
+  $scope.user = {};
 
-        console.log("Facebook data is: ", data);
-        // potentially store the token in localstaorage
+  $scope.signin = function() {
+    console.log("$scope.user is: ", $scope.user);
+    Auth.signin($scope.user)
+      .then(function (data) {
+        $window.localStorage.setItem('username', data.username);
+        // $window.localStorage.setItem('com.bracketmt', data.token);
         $state.go('app.map');
       })
-      .catch(function (error){
-        console.log("ERROR");
+      .catch(function (error) {
         console.error(error);
-        $state.go('app.map');
       });
   };
 });

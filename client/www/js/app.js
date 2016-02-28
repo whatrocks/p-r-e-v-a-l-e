@@ -1,6 +1,8 @@
 angular.module('starter', 
   [
   'ionic', 
+  'ngCordova',
+  'ngStorage',
   'starter.controllers', 
   'prevale.mapServices',
   'prevale.httpServices',

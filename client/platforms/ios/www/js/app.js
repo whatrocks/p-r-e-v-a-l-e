@@ -1,13 +1,19 @@
 angular.module('starter', 
   [
   'ionic', 
+  'ngCordova',
+  'ngCordovaOauth',
+  'ngStorage',
+  'ngOpenFB',
   'starter.controllers', 
   'prevale.mapServices',
   'prevale.httpServices',
+  'prevale.welcomeController',
   'prevale.mapController'
   ])
 
-.run(function($ionicPlatform) {
+.run(function($ionicPlatform, ngFB) {
+  ngFB.init({appId: '1018406694864765'});
   $ionicPlatform.ready(function() {
     // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
     // for form inputs)
@@ -25,6 +31,12 @@ angular.module('starter',
 
 .config(function($stateProvider, $urlRouterProvider) {
   $stateProvider
+
+  .state('welcome', {
+    url: '/welcome',
+    templateUrl: 'templates/welcome.html',
+    controller: 'WelcomeController'
+  })
 
   .state('app', {
     url: '/app',
@@ -52,11 +64,11 @@ angular.module('starter',
     }
   })
 
-  .state('app.browse', {
-      url: '/browse',
+  .state('app.about', {
+      url: '/about',
       views: {
         'menuContent': {
-          templateUrl: 'templates/browse.html'
+          templateUrl: 'templates/about.html'
         }
       }
     })
@@ -71,5 +83,5 @@ angular.module('starter',
     }
   });
   // if none of the above states are matched, use this as the fallback
-  $urlRouterProvider.otherwise('/app/map');
+  $urlRouterProvider.otherwise('/welcome');
 });
