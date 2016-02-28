@@ -2,15 +2,35 @@
   position:absolute; top:40px; bottom:0; width:100%;
 }
 
+.prevale-side-bg {
+  background-image: url("../img/prevale-dark.png");
+}
+
+.prevale-bg {
+  background-image: url("../img/prevale-bg.png");
+}
+
+
+.nav-title-bar {
+  background-color: tomato;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
 .textInput {
+  border: 4px solid tomato;
   border-radius: 5px;
   height: 150px;
   width: 300px;
   text-align: center;
   margin-top: 10px;
   margin-bottom: 30px;
-  border-color: tomato;
-  border: 4px solid;
 }
 
 .welcomeButton {

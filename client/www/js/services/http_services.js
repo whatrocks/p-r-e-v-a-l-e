@@ -4,7 +4,7 @@ angular.module('prevale.httpServices', [])
   var createJourney = function(journeyDetails) {
     return $http({
       method: 'POST',
-      url: 'http://6888f10c.ngrok.io/api/journeys/create',
+      url: 'http://77dd2aa4.ngrok.io/api/journeys/create',
       data: journeyDetails,
       headers: {'Content-Type':'application/JSON'}
     })
@@ -16,7 +16,7 @@ angular.module('prevale.httpServices', [])
   var getWaypoints = function(cb) {
     return $http({
       method: 'GET',
-      url: 'http://6888f10c.ngrok.io/api/waypoints',
+      url: 'http://77dd2aa4.ngrok.io/api/journeys',
       headers: {'Content-Type':'application/JSON'}
     })
     .then(function(response){
@@ -27,7 +27,7 @@ angular.module('prevale.httpServices', [])
   var sendWaypoints = function(waypoints, cb) {
     return $http({
       method: 'POST',
-      url: 'http://6888f10c.ngrok.io/api/journeys/addTo',
+      url: 'http://77dd2aa4.ngrok.io/api/journeys/addTo',
       processData: false,
       data: waypoints,
       headers: {'Content-Type':'application/JSON'}
@@ -51,7 +51,7 @@ angular.module('prevale.httpServices', [])
 
     return $http({
       method: 'POST',
-      url: 'http://6888f10c.ngrok.io/api/users/create', // ASK NATE
+      url: 'http://77dd2aa4.ngrok.io/api/users/create', // ASK NATE
       data: JSON.stringify(user),
       headers: {'Content-Type':'application/JSON'}
     })

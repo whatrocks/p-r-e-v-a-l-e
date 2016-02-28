@@ -56,7 +56,7 @@ angular.module('starter',
     url: '/search',
     views: {
       'menuContent': {
-        templateUrl: 'templates/search.html'
+        templateUrl: 'templates/about.html'
       }
     }
   })
@@ -74,8 +74,8 @@ angular.module('starter',
     url: '/playlists/:playlistId',
     views: {
       'menuContent': {
-        templateUrl: 'templates/playlist.html',
-        controller: 'PlaylistCtrl'
+        templateUrl: 'templates/about.html',
+        controller: 'MapController'
       }
     }
   });

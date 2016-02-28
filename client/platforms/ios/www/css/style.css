@@ -2,28 +2,56 @@
   position:absolute; top:40px; bottom:0; width:100%;
 }
 
+.prevale-side-bg {
+  background-image: url("../img/prevale-dark.png");
+}
+
+.prevale-bg {
+  background-image: url("../img/prevale-bg.png");
+}
+
+
+.nav-title-bar {
+  background-color: tomato;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+.textInput {
+  border: 4px solid tomato;
+  border-radius: 5px;
+  height: 150px;
+  width: 300px;
+  text-align: center;
+  margin-top: 10px;
+  margin-bottom: 30px;
+}
+
+.welcomeButton {
+  background-color: tomato;
+  color: white;
+  width: 300px;
+}
+
 .img-logo {
   height: 52px;
   width: 300px;
+  margin-bottom: 50px;
 }
 
 #welcome {
   background-color: #FBFCFC;
+  background-image: url("../img/prevale-bg.png");
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   text-align: center;
   position:absolute; top:0px; bottom:0; width:100%;
-}
-
-#welcome-button {
-  background-color: #18CDCB;
-  border-color: #18CDCB; 
-  /*background-color: #F8F8F8;*/
-}
-
-#welcome-button button {
-  font-size: 25px;
-  padding-bottom: 50px;
 }

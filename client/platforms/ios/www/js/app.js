@@ -2,9 +2,7 @@ angular.module('starter',
   [
   'ionic', 
   'ngCordova',
-  'ngCordovaOauth',
   'ngStorage',
-  'ngOpenFB',
   'starter.controllers', 
   'prevale.mapServices',
   'prevale.httpServices',
@@ -12,8 +10,7 @@ angular.module('starter',
   'prevale.mapController'
   ])
 
-.run(function($ionicPlatform, ngFB) {
-  ngFB.init({appId: '1018406694864765'});
+.run(function($ionicPlatform) {
   $ionicPlatform.ready(function() {
     // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
     // for form inputs)
@@ -42,7 +39,7 @@ angular.module('starter',
     url: '/app',
     abstract: true,
     templateUrl: 'templates/menu.html',
-    controller: 'AppCtrl'
+    controller: 'WelcomeController'
   })
 
   .state('app.map', {
@@ -59,7 +56,7 @@ angular.module('starter',
     url: '/search',
     views: {
       'menuContent': {
-        templateUrl: 'templates/search.html'
+        templateUrl: 'templates/about.html'
       }
     }
   })
@@ -77,8 +74,8 @@ angular.module('starter',
     url: '/playlists/:playlistId',
     views: {
       'menuContent': {
-        templateUrl: 'templates/playlist.html',
-        controller: 'PlaylistCtrl'
+        templateUrl: 'templates/about.html',
+        controller: 'MapController'
       }
     }
   });
