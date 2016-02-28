@@ -74,6 +74,11 @@ angular.module('prevale.mapController', [])
             function (reason) {
             });
               alert(JSON.stringify(response.result));
+              var currentLocation = [123, 456];
+              var keyword = response.result.parameters.locations;
+              Waypoints.sendVoice(currentLocation, keyword, function(result) {
+                alert(result);
+              })
               // alert(JSON.stringify(response.result.metadata));
               // alert(JSON.stringify(response.result.metadata.html));
             if(response.result.metadata.html) {
