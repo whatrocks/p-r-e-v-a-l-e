@@ -118,7 +118,7 @@ module.exports = function (app, passport) {
       })
       .then(function (results) {
         if (results) {
-          res.send(200)
+          res.send(201)
         }
       })
       .catch(function (err) {
@@ -179,12 +179,15 @@ module.exports = function (app, passport) {
   });
 
   // Route for finding a mission destination via Foursquare
-  app.get('/destinationSearch', function (req, res) {
-    var currentLoc = '40.7,-74'; //req.body.currentLoc;
-    var keywords = ['sushi']; //req.body.keywords;
+  app.get('/api/destinationSearch', function (req, res) {
+    var currentLocation = req.query.currentLocation;
+    var keyword = req.query.keyword;
+    if (!(currentLocation && keyword)) {
+      res.send(400);
+    }
 
     var baseUrl = 'https://api.foursquare.com/v2/venues/explore?client_id=' + config.foursquare.clientID  + '&client_secret=' + config.foursquare.clientSecret;
-    var fullQuery = baseUrl + '&ll=' + currentLoc + '&query=' + keywords[0] + '&v=20160227&m=foursquare';
+    var fullQuery = baseUrl + '&ll=' + currentLocation + '&query=' + keyword + '&v=20160227&m=foursquare';
 
     request({
       method: 'GET',
@@ -196,5 +199,10 @@ module.exports = function (app, passport) {
         res.send(topResult);
       }
     });
+  });
+
+  // ArcGIS route for directions and waypoint calculation
+  app.get('/api/routeInfo', function (req, res) {
+
   });
 };
