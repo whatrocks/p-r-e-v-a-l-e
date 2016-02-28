@@ -16,6 +16,9 @@
         "cordova-plugin-device": {
             "PACKAGE_NAME": "com.ionicframework.prevale712590"
         },
+        "cordova-plugin-geolocation": {
+            "PACKAGE_NAME": "com.ionicframework.prevale712590"
+        },
         "cordova-plugin-splashscreen": {
             "PACKAGE_NAME": "com.ionicframework.prevale712590"
         },
@@ -29,9 +32,6 @@
             "PACKAGE_NAME": "com.ionicframework.prevale712590"
         },
         "ionic-plugin-keyboard": {
-            "PACKAGE_NAME": "com.ionicframework.prevale712590"
-        },
-        "cordova-plugin-geolocation": {
             "PACKAGE_NAME": "com.ionicframework.prevale712590"
         }
     },
