@@ -1,5 +1,5 @@
 angular.module('prevale.mapController', [])
-.controller('MapController', function($scope, $window, RenderMap, Waypoints, CoordinateFilter, $interval, $ionicLoading){
+.controller('MapController', function($scope, $window, RenderMap, Waypoints, CoordinateFilter, $interval, $ionicLoading, $compile){
 
   console.log("My initial journey is: ", window.localStorage.getItem('initialJourney-id'));
 
@@ -63,7 +63,12 @@ angular.module('prevale.mapController', [])
     }, positionOptions);
 
   });
-
+  var hello = function() {
+    alert('hello');
+  }
+  // var missionText = angular.element('<div class="mission"><button ng-click="hello()" class="mission-text">HEY HEY</button></div>');
+  // angular.element(document.body).prepend(missionText);
+  // $compile(missionText)($scope);
   $scope.data = [];
   $scope.voiceCommand = function (){
   $ionicLoading.show({
@@ -87,10 +92,31 @@ angular.module('prevale.mapController', [])
           });
             alert(JSON.stringify(response));
             var keyword = response.result.parameters.locations;
-            Waypoints.sendVoice($scope.currentPosition, keyword, function(result) {
+            var distance = response.result.parameters.distances;
+            Waypoints.sendVoice($scope.currentPosition.join(','), keyword, distance, function(result) {
               alert(JSON.stringify(result));
               var markers = [result.data.location.lat, result.data.location.lng];
+              var payload = {
+                destination: result,
+                user: $window.localStorage.getItem('user-id'),
+                coordinates: []
+              }
               RenderMap.displayGoal(markers);
+              Waypoints.createJourney(result).then(function(journey) {
+                Waypoints.getCheckpoints($scope.currentPosition.join(','), markers.join(',')).then(function(response) {
+                  alert(JSON.stringify(response));
+                });
+                $window.localStorage.setItem('initialJourney-id', journey.id);
+              })
+              // var missionChoice = false;
+              // while(!missionChoice) {
+              //   var missionText = '<div class="mission"><p class="mission-text">HEY HEY</p></div>';
+              //   angular.element(document.body).prepend(missionText);
+
+              //   missionChoice = true;
+              // }
+
+
               $ionicLoading.hide();
             })
             // alert(JSON.stringify(response.result.metadata.html));

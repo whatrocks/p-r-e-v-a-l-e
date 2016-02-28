@@ -28,6 +28,8 @@
 		E175C6F43BF24434815BBE8A /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AD5609A3A7454858A90EE421 /* Foundation.framework */; };
 		B8DB2EEDF1E04B3ABDB92F85 /* CoreAudio.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8B944D3C23F04529A5663F1D /* CoreAudio.framework */; };
 		DE62A0D8D7C74B6D978E07D0 /* CDVTTS.m in Sources */ = {isa = PBXBuildFile; fileRef = 3192A66BB4E1469FBF8F2E18 /* CDVTTS.m */; };
+		6947F130DEF844548641FFE5 /* CDVLocation.m in Sources */ = {isa = PBXBuildFile; fileRef = 9C357BEF88FD4924B8853F31 /* CDVLocation.m */; };
+		56E7C4E0F44F46BB881FE43D /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 041673E72EAA4F1B8EA63C94 /* CoreLocation.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -99,6 +101,9 @@
 		8B944D3C23F04529A5663F1D /* CoreAudio.framework */ = {isa = PBXFileReference; name = "CoreAudio.framework"; path = "System/Library/Frameworks/CoreAudio.framework"; sourceTree = SDKROOT; fileEncoding = undefined; lastKnownFileType = wrapper.framework; explicitFileType = undefined; includeInIndex = 0; };
 		3192A66BB4E1469FBF8F2E18 /* CDVTTS.m */ = {isa = PBXFileReference; name = "CDVTTS.m"; path = "cordova-plugin-tts/CDVTTS.m"; sourceTree = "<group>"; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; explicitFileType = undefined; includeInIndex = 0; };
 		EEF50B845209407C92CC3D4E /* CDVTTS.h */ = {isa = PBXFileReference; name = "CDVTTS.h"; path = "cordova-plugin-tts/CDVTTS.h"; sourceTree = "<group>"; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; explicitFileType = undefined; includeInIndex = 0; };
+		9C357BEF88FD4924B8853F31 /* CDVLocation.m */ = {isa = PBXFileReference; name = "CDVLocation.m"; path = "cordova-plugin-geolocation/CDVLocation.m"; sourceTree = "<group>"; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; explicitFileType = undefined; includeInIndex = 0; };
+		363D39F9D0A94A3D850E281E /* CDVLocation.h */ = {isa = PBXFileReference; name = "CDVLocation.h"; path = "cordova-plugin-geolocation/CDVLocation.h"; sourceTree = "<group>"; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; explicitFileType = undefined; includeInIndex = 0; };
+		041673E72EAA4F1B8EA63C94 /* CoreLocation.framework */ = {isa = PBXFileReference; name = "CoreLocation.framework"; path = "System/Library/Frameworks/CoreLocation.framework"; sourceTree = SDKROOT; fileEncoding = undefined; lastKnownFileType = wrapper.framework; explicitFileType = undefined; includeInIndex = 0; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -111,6 +116,7 @@
 				DAE1DF55CA544A0382CB9B98 /* Security.framework in Frameworks */,
 				E175C6F43BF24434815BBE8A /* Foundation.framework in Frameworks */,
 				B8DB2EEDF1E04B3ABDB92F85 /* CoreAudio.framework in Frameworks */,
+				56E7C4E0F44F46BB881FE43D /* CoreLocation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -184,6 +190,7 @@
 				FBE0A76E6BA44E9B98543819 /* Security.framework */,
 				AD5609A3A7454858A90EE421 /* Foundation.framework */,
 				8B944D3C23F04529A5663F1D /* CoreAudio.framework */,
+				041673E72EAA4F1B8EA63C94 /* CoreLocation.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -237,6 +244,8 @@
 				22DF51192D8B4C2CB8A68E77 /* ApiAIPlugin.h */,
 				3192A66BB4E1469FBF8F2E18 /* CDVTTS.m */,
 				EEF50B845209407C92CC3D4E /* CDVTTS.h */,
+				9C357BEF88FD4924B8853F31 /* CDVLocation.m */,
+				363D39F9D0A94A3D850E281E /* CDVLocation.h */,
 			);
 			name = Plugins;
 			path = "Prevale/Plugins";
@@ -360,6 +369,7 @@
 				8837242D2DF0478997771F24 /* UIWebViewExtension.m in Sources */,
 				90B13CC120CC429FA1410209 /* ApiAIPlugin.m in Sources */,
 				DE62A0D8D7C74B6D978E07D0 /* CDVTTS.m in Sources */,
+				6947F130DEF844548641FFE5 /* CDVLocation.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

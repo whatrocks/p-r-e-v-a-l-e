@@ -10,6 +10,7 @@ angular.module('starter',
   'prevale.welcomeController',
   'prevale.mapController',
   'prevale.missionsController',
+  'prevale.missionDetailsController',
   'prevale.appController',
   ])
 
@@ -90,6 +91,16 @@ angular.module('starter',
       'menuContent': {
         templateUrl: 'templates/missions.html',
         controller: 'MissionsController'
+      }
+    }
+  })
+
+  .state('app.mission', {
+    url: '/mission',
+    views: {
+      'menuContent': {
+        templateUrl: 'templates/mission-details.html',
+        controller: 'MissionDetailsController'
       }
     }
   })

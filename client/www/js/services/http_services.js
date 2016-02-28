@@ -37,24 +37,35 @@ angular.module('prevale.httpServices', [])
     });
   };
 
-  var sendVoice = function(currentLocation, keyword, cb) {
+  var sendVoice = function(currentLocation, keyword, distance, cb) {
      console.log('keyword', keyword);
      console.log('currentLocation', currentLocation);
      return $http({
        method: 'GET',
-       url: 'http:/127.0.0.1:3000/api/destinationSearch?currentLocation=' + currentLocation + '&keyword=' + keyword
+       url: 'http:/127.0.0.1:3000/api/destinationSearch?currentLocation=' + currentLocation + '&keyword=' + keyword + '&distance=' + distance
      })
      .then(function(response) {
-        alert('result: ' + JSON.stringify(response));
         cb(response);
      });
    };
+
+  var getCheckpoints = function(start, destination) {
+    return $http({
+      method: 'GET',
+      url: 'http://127.0.0.1:3000/api/routeInfo?start=' + start + '&destination=' + destination,
+      headers: {'Content-Type':'application/JSON'}
+    })
+    .then(function(response){
+      return response;
+    });
+  }
 
   return {
     createJourney: createJourney,
     getWaypoints: getWaypoints,
     sendWaypoints: sendWaypoints,
     sendVoice: sendVoice,
+    getCheckpoints: getCheckpoints
   };
 
 })
