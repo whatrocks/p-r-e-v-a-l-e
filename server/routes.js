@@ -58,7 +58,7 @@ module.exports = function (app, passport) {
           res.status(404).send('User not found');
         } else {
           if (users[0].password === password) {
-            res.redirect('/api/journeys/userHistory/' + users[0].id)
+            res.json(users[0]);
           } else {
             res.status(400).send("Incorrect password");
           }
