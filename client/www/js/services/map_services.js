@@ -101,14 +101,23 @@ angular.module('prevale.mapServices', [])
     L.mapbox.accessToken = mapboxAccessToken;    
     
     var mapInit = function() {
-        zoom = 12;
+        zoom = 16;
         // TODO: style our maps
         layer = L.TileLayer
         .maskCanvas({
-            radius: 25,              
+            radius: 100,
+            useAbsoluteRadius: true,
+            color: '#0D0019',
+            opacity: 0.85,
+            noMask: false,
+            lineColor: '#0D0019'
+        });
+        layer2 = L.TileLayer
+        .maskCanvas({
+            radius: 35,              
             useAbsoluteRadius: true,
             color: '#0D0019',     
-            opacity: 1,          
+            opacity: 0.85,          
             noMask: false,         
             lineColor: '#A00'
         });
@@ -117,14 +126,17 @@ angular.module('prevale.mapServices', [])
         });
         // .setView([40, -74.50], 9);
 
-        map.touchZoom.disable();
-        map.doubleClickZoom.disable();
-        map.scrollWheelZoom.disable();
+        // map.touchZoom.disable();
+        // map.doubleClickZoom.disable();
+        // map.scrollWheelZoom.disable();
     };
 
     var renderLayer = function(journeyPoints) {
         map.removeLayer(layer);
+        map.removeLayer(layer2);
         layer.setData(journeyPoints);
+        layer2.setData(journeyPoints);
+        map.addLayer(layer2);
         map.addLayer(layer);
         currentPosition = journeyPoints[journeyPoints.length - 1];
     };
