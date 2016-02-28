@@ -1,6 +1,8 @@
 var r = require('../database/db.js')(false);
 var config = require('../config/default.js');
 var request = require('request');
+var decompress = require('./utils.js');
+var _ = require('lodash');
 
 module.exports = function (app, passport) {
 
@@ -56,7 +58,7 @@ module.exports = function (app, passport) {
           res.status(404).send('User not found');
         } else {
           if (users[0].password === password) {
-            res.send(200);
+            res.json(users[0]);
           } else {
             res.status(400).send("Incorrect password");
           }
@@ -150,6 +152,39 @@ module.exports = function (app, passport) {
       });
   });
 
+  app.get('/api/journeys/userHistory/:id', function (req, res) {
+    var userId = req.params.id;
+    if (!(userId)) {
+      res.send(400);
+    }
+
+    r
+      .table('journeys')
+      // Find all journeys associated with a user id
+      .getAll(userId, {index: 'user'})
+      .run(r.conn)
+      .then(function (cursor) {
+        cursor.toArray()
+        .then(function (results) {
+          if (results.length > 0) {
+            // Extract just the coordinates from each entry, flatten, and remove duplicates
+            var allCoords = _
+            .chain(results)
+            .map(function (journey) {
+              return journey.coordinates;
+            })
+            .flatten()
+            .uniq();
+
+            res.send(allCoords);
+          } else {
+            res.send([]);
+          }
+        });
+      });
+
+  });
+
   // Facebook authentication route
   app.get('/auth/facebook', passport.authenticate('facebook', {scope: ['email', 'user_friends']}));
 
@@ -204,5 +239,39 @@ module.exports = function (app, passport) {
   // ArcGIS route for directions and waypoint calculation
   app.get('/api/routeInfo', function (req, res) {
 
+    function getToken(callback){
+      request.post({
+        url: 'https://www.arcgis.com/sharing/rest/oauth2/token/',
+        json:true,
+        form: {
+          'f': 'json',
+          'client_id': config.arcgis.clientID,
+          'client_secret': config.arcgis.clientSecret,
+          'grant_type': 'client_credentials',
+          'expiration': '1440'
+        }
+      }, function(error, response, body){
+        callback(body.access_token);
+      });
+    }
+
+    getToken(function(token){
+      request.post({
+        url: 'http://route.arcgis.com/arcgis/rest/services/World/Route/NAServer/Route_World/solve',
+        json:true,
+        form: {
+          f: 'json',
+          token: token,
+          stops: '-122.4079,37.78356;-122.404,37.782' //FIXME
+        }
+      }, function(error, response, body){
+        var directions = body.directions[0].features;
+        var decompressedPoints = directions.map(function (element) {
+          return decompress(element.compressedGeometry);
+        });
+        console.log(decompressedPoints);
+        res.send(decompressedPoints);
+      });
+    });
   });
 };
