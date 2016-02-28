@@ -23,6 +23,10 @@ module.exports = function (init) {
       {
         name: 'journeys',
         indexes: ['createdAt', 'user', 'coordinates', 'destination']
+      },
+      {
+        name: 'missions',
+        indexes: ['createdAt', 'location']
       }
     ]).then(function (conn) {
       console.log('Database and tables init success');
