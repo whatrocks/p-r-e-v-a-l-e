@@ -12,5 +12,9 @@ module.exports = {
   ports: {
     http: 8080,
     local: 3000
+  },
+  foursquare: {
+    clientID: 'YBCK0DP2U1RI30ZAJ0ARLEX3DYHPPQWHDOSGOJ1CV5JPRBSP',
+    clientSecret: 'HMUCB1SCTXXSU1WUNEALPUXMBPKLQXD5A5IRRULFFVKEGMJD'
   }
 };
