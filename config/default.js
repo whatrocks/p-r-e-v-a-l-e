@@ -16,5 +16,9 @@ module.exports = {
   foursquare: {
     clientID: 'YBCK0DP2U1RI30ZAJ0ARLEX3DYHPPQWHDOSGOJ1CV5JPRBSP',
     clientSecret: 'HMUCB1SCTXXSU1WUNEALPUXMBPKLQXD5A5IRRULFFVKEGMJD'
+  },
+  arcgis: {
+    clientID: 'd80OFImKkbaTNSiH',
+    clientSecret: 'dad969aed85642228ac182b6d75ba5e3'
   }
 };
