@@ -41,9 +41,12 @@ angular.module('prevale.mapController', [])
 
     waypoints = JSON.parse(window.localStorage.getItem('waypoints'));
     
-    navigator.geolocation.watchPosition(function(position) {      
+    navigator.geolocation.watchPosition(function(position) {   
+      
+      console.log("I'm in the navigator: ", position);   
+      
       if (initRender) {
-        console.log("init render");
+        console.log("init render in Watch Position");
         CoordinateFilter.handleCoordinate(position);
         waypoints = JSON.parse(window.localStorage.getItem('waypoints'));
         RenderMap.renderLayer(waypoints);
@@ -54,7 +57,8 @@ angular.module('prevale.mapController', [])
         RenderMap.centerView();
       }
     }, function(error) {
-      console.log(error)
+      console.log("navigator didn't work");
+      console.log(error);
     }, positionOptions);
 
   });

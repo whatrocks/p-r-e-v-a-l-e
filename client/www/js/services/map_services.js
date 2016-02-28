@@ -22,10 +22,11 @@ angular.module('prevale.mapServices', [])
         temp = (temp === null) ? [] : JSON.parse(temp);
 
         // If it's unique, then add it
-        var lastItem = temp[temp.length - 1];
-        console.log("lastItem: ", lastItem[0]);
-        console.log("coordinate:", coordinate[0]);
-        if ( lastItem[0] !== coordinate[0] || lastItem[1] !== coordinate[1] ) {
+        // var lastItem = temp[temp.length - 1];
+        // console.log("lastItem: ", lastItem[0]);
+        // console.log("coordinate:", coordinate[0]);
+        
+        // if ( temp === [] || lastItem[0] !== coordinate[0] || lastItem[1] !== coordinate[1] ) {
             console.log("new coordinate found!!");
             temp.push(coordinate);
             window.localStorage.setItem('waypoints', JSON.stringify(temp));
@@ -49,7 +50,7 @@ angular.module('prevale.mapServices', [])
                     waypointsToBeSent.waypoints = [];
                 });
             // }            
-        }
+        // }
     };
 
     var shouldStoreCoordinate = function(coordinate) {
@@ -104,7 +105,7 @@ angular.module('prevale.mapServices', [])
         // TODO: style our maps
         layer = L.TileLayer
         .maskCanvas({
-            radius: 1000,              
+            radius: 25,              
             useAbsoluteRadius: true,
             color: '#0D0019',     
             opacity: 1,          
@@ -113,12 +114,12 @@ angular.module('prevale.mapServices', [])
         });
         map = L.mapbox.map('map', 'mapbox.streets', {
             zoomControl: false
-        })
+        });
         // .setView([40, -74.50], 9);
 
-        // map.touchZoom.disable();
-        // map.doubleClickZoom.disable();
-        // map.scrollWheelZoom.disable();
+        map.touchZoom.disable();
+        map.doubleClickZoom.disable();
+        map.scrollWheelZoom.disable();
     };
 
     var renderLayer = function(journeyPoints) {
@@ -131,7 +132,7 @@ angular.module('prevale.mapServices', [])
     var centerView = function() {
         console.log("Center View!!");
         console.log("currentPos:", currentPosition);
-        map.setView(currentPosition, zoom);
+        map.setView(currentPosition, 16);
     };
 
     return {

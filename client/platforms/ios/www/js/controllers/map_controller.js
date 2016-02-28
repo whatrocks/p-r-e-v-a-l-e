@@ -1,7 +1,6 @@
 angular.module('prevale.mapController', [])
 .controller('MapController', function($scope, $window, RenderMap, Waypoints, CoordinateFilter, $interval){
 
-  console.log("I'm in map controller");
   console.log("My initial journey is: ", window.localStorage.getItem('initialJourney-id'));
 
   var positionOptions = { timeout: 1000, maximumAge: 60000, enableHighAccuracy: true};
@@ -11,18 +10,23 @@ angular.module('prevale.mapController', [])
 
   RenderMap.mapInit();
 
-  if ( window.localStorage.getItem('waypoints')) {
-    console.log("localStorage: ", window.localStorage);
-    // waypoints = JSON.parse(window.localStorage.getItem('waypoints'));
-    // RenderMap.renderLayer(waypoints);
+  if ( window.localStorage.getItem('waypoints') ) {
+    console.log("local way: ", window.localStorage.getItem('waypoints'));
+    if ( window.localStorage.getItem('waypoints') !== "[]" && window.localStorage.getItem('waypoints') !== "undefined" ) {
+      console.log("localStorage: ", window.localStorage);
+      waypoints = JSON.parse(window.localStorage.getItem('waypoints'));
+      RenderMap.renderLayer(waypoints);
+    }
   }
 
   $interval(function() {
     console.log("interval fires");
     console.log("localStorage waypoints: ", window.localStorage.getItem('waypoints'));
-    waypoints = JSON.parse(window.localStorage.getItem('waypoints'));
-    RenderMap.renderLayer(waypoints);
-  }, 30000);
+    if ( window.localStorage.getItem('waypoints') !== "[]" && window.localStorage.getItem('waypoints') !== "undefined") {
+      waypoints = JSON.parse(window.localStorage.getItem('waypoints'));
+      RenderMap.renderLayer(waypoints);
+    }
+  }, 5000);
 
   var initialJourneyID = window.localStorage.getItem('initialJourney-id');
 
@@ -37,21 +41,24 @@ angular.module('prevale.mapController', [])
 
     waypoints = JSON.parse(window.localStorage.getItem('waypoints'));
     
-    navigator.geolocation.watchPosition(function(position) {      
+    navigator.geolocation.watchPosition(function(position) {   
+      
+      console.log("I'm in the navigator: ", position);   
+      
       if (initRender) {
-        console.log("init render");
+        console.log("init render in Watch Position");
         CoordinateFilter.handleCoordinate(position);
         waypoints = JSON.parse(window.localStorage.getItem('waypoints'));
         RenderMap.renderLayer(waypoints);
         RenderMap.centerView();
         initRender = false;
       } else {
-        console.log("ELSE");
         CoordinateFilter.handleCoordinate(position);
-        // RenderMap.centerView();
+        RenderMap.centerView();
       }
     }, function(error) {
-      console.log(error)
+      console.log("navigator didn't work");
+      console.log(error);
     }, positionOptions);
 
   });
