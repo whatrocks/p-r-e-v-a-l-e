@@ -1,13 +1,17 @@
 angular.module('starter',
   [
   'ionic',
+  'ionic-material',
   'ngCordova',
   'ngStorage',
   'starter.controllers',
   'prevale.mapServices',
   'prevale.httpServices',
   'prevale.welcomeController',
-  'prevale.mapController'
+  'prevale.mapController',
+  'prevale.missionsController',
+  'prevale.missionDetailsController',
+  'prevale.appController',
   ])
 
 .run(function($ionicPlatform, $ionicLoading) {
@@ -77,6 +81,26 @@ angular.module('starter',
     views: {
       'menuContent': {
         templateUrl: 'templates/about.html'
+      }
+    }
+  })
+
+  .state('app.missions', {
+    url: '/missions',
+    views: {
+      'menuContent': {
+        templateUrl: 'templates/missions.html',
+        controller: 'MissionsController'
+      }
+    }
+  })
+
+  .state('app.mission', {
+    url: '/mission',
+    views: {
+      'menuContent': {
+        templateUrl: 'templates/mission-details.html',
+        controller: 'MissionDetailsController'
       }
     }
   })

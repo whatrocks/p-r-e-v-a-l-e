@@ -85,3 +85,8 @@
   height: 60px;
   opacity: 0.7;
 }
+
+.item-thumbnail-left > img:first-child, .item-thumbnail-left .item-image, .item-thumbnail-left .item-content > img:first-child, .item-thumbnail-left .item-content .item-image {
+  max-width: 70px;
+  max-height: 70px;
+}
