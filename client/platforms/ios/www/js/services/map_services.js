@@ -4,8 +4,8 @@ angular.module('prevale.mapServices', [])
     var waypointsToBeSent = {waypoints: []};
 
     var handleCoordinate = function (position) {
-        console.log("HANDLE COORDINATE");
-        console.log("position is: ", position);
+        // console.log("HANDLE COORDINATE");
+        // console.log("position is: ", position);
         var coordinateTuple = [];
         coordinateTuple.push(position.coords.latitude);
         coordinateTuple.push(position.coords.longitude);
@@ -16,9 +16,9 @@ angular.module('prevale.mapServices', [])
     };
 
     var storeCoordinate = function(coordinate) {
-        console.log("Im in storeCoordinate");
+        // console.log("Im in storeCoordinate");
         var temp = window.localStorage.getItem('waypoints');
-        console.log("temp is: ", temp);
+        // console.log("temp is: ", temp);
         temp = (temp === null) ? [] : JSON.parse(temp);
 
         // If it's unique, then add it
@@ -27,7 +27,7 @@ angular.module('prevale.mapServices', [])
         // console.log("coordinate:", coordinate[0]);
 
         // if ( temp === [] || lastItem[0] !== coordinate[0] || lastItem[1] !== coordinate[1] ) {
-            console.log("new coordinate found!!");
+            // console.log("new coordinate found!!");
             temp.push(coordinate);
             window.localStorage.setItem('waypoints', JSON.stringify(temp));
 
@@ -38,7 +38,7 @@ angular.module('prevale.mapServices', [])
                 coords: waypointsToBeSent.waypoints
             };
 
-            console.log("journeyWaypoints to be sent: ", journeyWaypoints);
+            // console.log("journeyWaypoints to be sent: ", journeyWaypoints);
 
             // if (waypointsToBeSent.waypoints.length > 2) {
                 Waypoints.sendWaypoints(journeyWaypoints, function(response) {
@@ -142,8 +142,8 @@ angular.module('prevale.mapServices', [])
     };
 
     var centerView = function() {
-        console.log("Center View!!");
-        console.log("currentPos:", currentPosition);
+        // console.log("Center View!!");
+        // console.log("currentPos:", currentPosition);
         map.setView(currentPosition, zoomLevel);
     };
 
@@ -178,6 +178,16 @@ angular.module('prevale.mapServices', [])
           // .addTo(map)
     };
 
+    var zoomToCurrentPosition = function () {
+        zoomLevel = 16;
+        centerView();
+    };
+
+    var zoomOut = function() {
+        zoomLevel = 12;
+        centerView();
+    };
+
     return {
         mapInit: mapInit,
         handleZoom: handleZoom,
@@ -185,6 +195,8 @@ angular.module('prevale.mapServices', [])
         centerView: centerView,
         displayMarkers: displayMarkers,
         displayGoal: displayGoal,
+        zoomToCurrentPosition: zoomToCurrentPosition,
+        zoomOut: zoomOut
     };
 });
 

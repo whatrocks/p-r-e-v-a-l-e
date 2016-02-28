@@ -4,8 +4,19 @@ angular.module('prevale.httpServices', [])
   var createJourney = function(journeyDetails) {
     return $http({
       method: 'POST',
-      url: 'http://127.0.0.1:3000/api/journeys/create',
+      url: 'http://9990471d.ngrok.io/api/journeys/create',
       data: journeyDetails,
+      headers: {'Content-Type':'application/JSON'}
+    })
+    .then(function(response){
+      return response.data;
+    });
+  };
+
+  var getAllJourneyHistory = function(userId) {
+    return $http({
+      method: 'GET',
+      url: 'http://9990471d.ngrok.io/api/journeys/userHistory/' + userId,
       headers: {'Content-Type':'application/JSON'}
     })
     .then(function(response){
@@ -16,7 +27,7 @@ angular.module('prevale.httpServices', [])
   var getWaypoints = function(journeyId, cb) {
     return $http({
       method: 'GET',
-      url: 'http://127.0.0.1:3000/api/journeys/' + journeyId,
+      url: 'http://9990471d.ngrok.io/api/journeys/' + journeyId,
       headers: {'Content-Type':'application/JSON'}
     })
     .then(function(response){
@@ -27,7 +38,7 @@ angular.module('prevale.httpServices', [])
   var sendWaypoints = function(waypoints, cb) {
     return $http({
       method: 'POST',
-      url: 'http://127.0.0.1:3000/api/journeys/addTo',
+      url: 'http://9990471d.ngrok.io/api/journeys/addTo',
       processData: false,
       data: waypoints,
       headers: {'Content-Type':'application/JSON'}
@@ -52,6 +63,7 @@ angular.module('prevale.httpServices', [])
 
   return {
     createJourney: createJourney,
+    getAllJourneyHistory: getAllJourneyHistory,
     getWaypoints: getWaypoints,
     sendWaypoints: sendWaypoints,
     sendVoice: sendVoice,
@@ -61,24 +73,41 @@ angular.module('prevale.httpServices', [])
 
 .factory('Auth', function($http, $location, $window) {
 
-  var signin = function (user) {
+  var login = function (user) {
+      
+     return $http({
+       method: 'POST',
+       url: 'http://9990471d.ngrok.io/api/users/login',
+       data: JSON.stringify(user),
+       headers: {'Content-Type':'application/JSON'}
+     })
+     .then(function (resp) {
+       console.log("resp is :", resp);
+       return resp.data;
+     });
 
-    console.log("about to hit create user endpoint with user: ", user);
+  };
 
-    return $http({
-      method: 'POST',
-      url: 'http://127.0.0.1:3000/api/users/create',
-      data: JSON.stringify(user),
-      headers: {'Content-Type':'application/JSON'}
-    })
-    .then(function (resp) {
-      console.log("resp is :", resp);
-      return resp.data;
-    });
+
+  var signup = function (user) {
+
+      console.log("SIGN UP");
+      return $http({
+        method: 'POST',
+        url: 'http://9990471d.ngrok.io/api/users/create',
+        data: JSON.stringify(user),
+        headers: {'Content-Type':'application/JSON'}
+      })
+      .then(function (resp) {
+        console.log("resp is :", resp);
+        return resp.data;
+      });
+    
   };
 
   return {
-    signin: signin,
+    signup: signup,
+    login: login
   };
 
 });

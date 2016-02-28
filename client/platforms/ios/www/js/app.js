@@ -10,10 +10,12 @@ angular.module('starter',
   'prevale.welcomeController',
   'prevale.mapController',
   'prevale.missionsController',
+  'prevale.missionDetailsController',
+  'prevale.escapeController',
   'prevale.appController',
   ])
 
-.run(function($ionicPlatform, $ionicLoading) {
+.run(function($ionicPlatform, $ionicLoading, $state) {
   $ionicPlatform.ready(function() {
     // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
     // for form inputs)
@@ -26,6 +28,11 @@ angular.module('starter',
       // org.apache.cordova.statusbar required
       StatusBar.styleDefault();
     }
+
+    // if ( window.localStorage.username ) {
+    //   $state.go('app.map');
+    // }
+
   });
   ionic.Platform.ready(function(){
     window.ApiAIPlugin.init(
@@ -90,6 +97,26 @@ angular.module('starter',
       'menuContent': {
         templateUrl: 'templates/missions.html',
         controller: 'MissionsController'
+      }
+    }
+  })
+
+  .state('app.mission', {
+    url: '/mission',
+    views: {
+      'menuContent': {
+        templateUrl: 'templates/mission-details.html',
+        controller: 'MissionDetailsController'
+      }
+    }
+  })
+
+  .state('app.escape', {
+    url: '/escape',
+    views: {
+      'menuContent': {
+        templateUrl: 'templates/escape.html',
+        controller: 'EscapeController'
       }
     }
   })

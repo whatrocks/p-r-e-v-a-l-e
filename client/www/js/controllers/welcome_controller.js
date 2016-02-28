@@ -3,26 +3,90 @@ angular.module('prevale.welcomeController', [])
 
   $scope.user = {};
 
-  $scope.signin = function() {
+  $scope.login= function() {
 
-    Auth.signin($scope.user)
+    console.log("log in with: ", $scope.user);
+
+    // LOGIN TO EXISTING USER
+    Auth.login($scope.user)
       .then(function (data) {
         $window.localStorage.setItem('username', data.username);
         $window.localStorage.setItem('user-id', data.id);
+
+        var userID = data.id;
+
+        var initialJourney = {
+          user: $window.localStorage.getItem('user-id'),
+          destination: []
+        };
+
+        // CREATE AN INITIAL JOURNEY
+        Waypoints.createJourney(initialJourney)
+        .then(function (data) {
+          console.log("data from create journey: ", data);
+          $window.localStorage.setItem('initialJourney-id', data.id);
+
+          // GRAB ALL PREVIOUS JOURNEY HISTORY
+          Waypoints.getAllJourneyHistory(userID)
+          .then(function (data) {
+
+            $window.localStorage.setItem('previousWaypoints', JSON.stringify(data)); // NEED TO FIGURE THIS OUT
+            console.log("previousWaypoints:", $window.localStorage.getItem('previousWaypoints'));
+            // GO TO THE MAP PAGE
+            $state.go('app.map');
+          })
+          .catch(function(error) {
+            console.log("PREVIOUS HISTORY DIDNT WORK");
+            $state.go('app.map');
+            console.error(error);
+          });
+
+        })
+        .catch(function(error) {
+          console.error(error);
+        });
+
+      })
+      .catch(function (error) {
+        console.error(error);
+      });
+
+  };
+
+  $scope.signup = function() {
+    // CREATE A USER
+    Auth.signup($scope.user)
+      .then(function (data) {
+        $window.localStorage.setItem('username', data.username);
+        $window.localStorage.setItem('user-id', data.id);
+
+        var userID = data.id;
 
         var initialJourney = {
           user: $window.localStorage.getItem('user-id'),
           destination: {}
         };
 
+        // CREATE AN INITIAL JOURNEY
         Waypoints.createJourney(initialJourney)
         .then(function (data) {
-
           console.log("data from create journey: ", data);
-
           $window.localStorage.setItem('initialJourney-id', data.id);
 
-          $state.go('app.map');
+          // GRAB ALL PREVIOUS JOURNEY HISTORY
+          Waypoints.getAllJourneyHistory(userID)
+          .then(function (data) {
+
+            $window.localStorage.setItem('previousWaypoints', JSON.stringify(data)); // NEED TO FIGURE THIS OUT
+            console.log("previousWaypoints:", $window.localStorage.getItem('previousWaypoints'));
+            // GO TO THE MAP PAGE
+            $state.go('app.map');
+          })
+          .catch(function(error) {
+            console.log("PREVIOUS HISTORY DIDNT WORK");
+            $state.go('app.map');
+            console.error(error);
+          });
 
         })
         .catch(function(error) {
