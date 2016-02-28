@@ -11,6 +11,9 @@ module.exports = function (app, passport) {
     var username = req.body.username;
     var password = req.body.password;
 
+    if (!(username && password)) {
+      res.send(400);
+    }
     r
     .table('users')
     .getAll(username, {index: 'username'})
@@ -41,6 +44,9 @@ module.exports = function (app, passport) {
     var username = req.body.username;
     var password = req.body.password;
 
+    if (!(username && password)) {
+      res.send(400);
+    }
     r
     .table('users')
     .getAll(username, {index: 'username'})
@@ -102,6 +108,10 @@ module.exports = function (app, passport) {
       .then(function (changes) {
         res.json(changes)
       });
+  });
+
+  app.get('api/journeys', function (req, res) {
+
   });
 
   // Facebook authentication route
