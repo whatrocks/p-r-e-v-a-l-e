@@ -4,7 +4,7 @@ angular.module('prevale.httpServices', [])
   var createJourney = function(journeyDetails) {
     return $http({
       method: 'POST',
-      url: 'http://9840a13e.ngrok.io/api/journeys/create',
+      url: 'http://127.0.0.1:3000/api/journeys/create',
       data: journeyDetails,
       headers: {'Content-Type':'application/JSON'}
     })
@@ -16,7 +16,7 @@ angular.module('prevale.httpServices', [])
   var getWaypoints = function(journeyId, cb) {
     return $http({
       method: 'GET',
-      url: 'http://9840a13e.ngrok.io/api/journeys/' + journeyId,
+      url: 'http://127.0.0.1:3000/api/journeys/' + journeyId,
       headers: {'Content-Type':'application/JSON'}
     })
     .then(function(response){
@@ -27,7 +27,7 @@ angular.module('prevale.httpServices', [])
   var sendWaypoints = function(waypoints, cb) {
     return $http({
       method: 'POST',
-      url: 'http://9840a13e.ngrok.io/api/journeys/addTo',
+      url: 'http://127.0.0.1:3000/api/journeys/addTo',
       processData: false,
       data: waypoints,
       headers: {'Content-Type':'application/JSON'}
@@ -38,19 +38,23 @@ angular.module('prevale.httpServices', [])
   };
 
   var sendVoice = function(currentLocation, keyword, cb) {
+     console.log('keyword', keyword);
+     console.log('currentLocation', currentLocation);
      return $http({
        method: 'GET',
        url: 'http:/127.0.0.1:3000/api/destinationSearch?currentLocation=' + currentLocation + '&keyword=' + keyword
      })
      .then(function(response) {
-       cb(response);
+        alert('result: ' + JSON.stringify(response));
+        cb(response);
      });
    };
 
   return {
     createJourney: createJourney,
     getWaypoints: getWaypoints,
-    sendWaypoints: sendWaypoints
+    sendWaypoints: sendWaypoints,
+    sendVoice: sendVoice,
   };
 
 })
@@ -63,7 +67,7 @@ angular.module('prevale.httpServices', [])
 
     return $http({
       method: 'POST',
-      url: 'http://9840a13e.ngrok.io/api/users/create',
+      url: 'http://127.0.0.1:3000/api/users/create',
       data: JSON.stringify(user),
       headers: {'Content-Type':'application/JSON'}
     })

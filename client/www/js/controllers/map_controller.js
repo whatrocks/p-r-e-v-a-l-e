@@ -35,16 +35,16 @@ angular.module('prevale.mapController', [])
     // var newData = [[40, -74.50],[40.1, -74.50],[40.2, -74.50]];
 
     console.log("getWaypoints data: ", data);
-    
+
     window.localStorage.waypoints = (JSON.stringify(data.coordinates));
     // window.localStorage.waypoints = (JSON.stringify(data.waypoints));
 
     waypoints = JSON.parse(window.localStorage.getItem('waypoints'));
-    
-    navigator.geolocation.watchPosition(function(position) {   
+
+    navigator.geolocation.watchPosition(function(position) {
       $scope.currentPosition = [ position.coords.latitude, position.coords.longitude];
-      console.log("I'm in the navigator: ", position);   
-      
+      console.log("I'm in the navigator: ", position);
+
       if (initRender) {
         console.log("init render in Watch Position");
         CoordinateFilter.handleCoordinate(position);
@@ -85,11 +85,13 @@ angular.module('prevale.mapController', [])
           },
           function (reason) {
           });
+            alert(JSON.stringify(response));
             var keyword = response.result.parameters.locations;
-            Waypoints.sendVoice(currentPosition, keyword, function(result) {
-              // alert(JSON.stringify(result));
+            Waypoints.sendVoice($scope.currentPosition, keyword, function(result) {
+              alert(JSON.stringify(result));
               var markers = [result.data.location.lat, result.data.location.lng];
               RenderMap.displayGoal(markers);
+              $ionicLoading.hide();
             })
             // alert(JSON.stringify(response.result.metadata.html));
           if(response.result.metadata.html) {

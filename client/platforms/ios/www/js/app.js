@@ -1,16 +1,16 @@
-angular.module('starter', 
+angular.module('starter',
   [
-  'ionic', 
+  'ionic',
   'ngCordova',
   'ngStorage',
-  'starter.controllers', 
+  'starter.controllers',
   'prevale.mapServices',
   'prevale.httpServices',
   'prevale.welcomeController',
   'prevale.mapController'
   ])
 
-.run(function($ionicPlatform) {
+.run(function($ionicPlatform, $ionicLoading) {
   $ionicPlatform.ready(function() {
     // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
     // for form inputs)
@@ -31,8 +31,12 @@ angular.module('starter',
         clientAccessToken: "8ff31d1639384d6c9d9332926322b2bf", // insert your client access key here
         lang: "en" // set lang tag from list of supported languages
       },
-      function(result) { console.log('API.AI: initialition OK') },
-      function(error) { /* error processing */ }
+      function(result) {
+        $ionicLoading.hide();
+      },
+      function(error) {
+        $ionicLoading.hide();
+      }
     );
     window.ApiAIPlugin.setListeningFinishCallback(
       function(){

@@ -25,7 +25,7 @@ angular.module('prevale.mapServices', [])
         // var lastItem = temp[temp.length - 1];
         // console.log("lastItem: ", lastItem[0]);
         // console.log("coordinate:", coordinate[0]);
-        
+
         // if ( temp === [] || lastItem[0] !== coordinate[0] || lastItem[1] !== coordinate[1] ) {
             console.log("new coordinate found!!");
             temp.push(coordinate);
@@ -49,7 +49,7 @@ angular.module('prevale.mapServices', [])
                        }
                     waypointsToBeSent.waypoints = [];
                 });
-            // }            
+            // }
         // }
     };
 
@@ -98,8 +98,8 @@ angular.module('prevale.mapServices', [])
     var currentPosition;
     var map;
     var layer;
-    L.mapbox.accessToken = mapboxAccessToken;    
-    
+    L.mapbox.accessToken = mapboxAccessToken;
+
     var mapInit = function() {
         zoomLevel = 16;
         // TODO: style our maps
@@ -114,11 +114,11 @@ angular.module('prevale.mapServices', [])
         });
         layer2 = L.TileLayer
         .maskCanvas({
-            radius: 35,              
+            radius: 35,
             useAbsoluteRadius: true,
-            color: '#0D0019',     
-            opacity: 0.85,          
-            noMask: false,         
+            color: '#0D0019',
+            opacity: 0.85,
+            noMask: false,
             lineColor: '#A00'
         });
         map = L.mapbox.map('map', 'mapbox.streets', {
@@ -149,7 +149,7 @@ angular.module('prevale.mapServices', [])
 
     var handleZoom = function() {
         zoomLevel = ( zoomLevel === 16 ) ? 14 : 16;
-        centerView(); 
+        centerView();
     };
 
     var displayMarkers = function (markerArr) {
@@ -185,6 +185,6 @@ angular.module('prevale.mapServices', [])
         centerView: centerView,
         displayMarkers: displayMarkers,
         displayGoal: displayGoal,
-    };  
+    };
 });
 
