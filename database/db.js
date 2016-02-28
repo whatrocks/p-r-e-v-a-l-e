@@ -18,7 +18,7 @@ module.exports = function (init) {
     r.init(config.rdb, [
       {
         name: 'users',
-        indexes: ['createdAt', 'name', 'facebook_id']
+        indexes: ['createdAt', 'username']
       },
       {
         name: 'journeys',

@@ -14,7 +14,7 @@ var session = require('express-session');
 app.use(cors());
 app.use(morgan('dev'));
 app.use(cookieParser());
-app.use(bodyParser.urlencoded({extended: false}));
+app.use(bodyParser.urlencoded({extended: true}));
 
 require('../config/passport.js')(passport);
 
