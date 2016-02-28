@@ -174,7 +174,8 @@ module.exports = function (app, passport) {
               return journey.coordinates;
             })
             .flatten()
-            .uniq();
+            .uniq()
+            .value();
 
             res.send(allCoords);
           } else {
@@ -255,6 +256,9 @@ module.exports = function (app, passport) {
   app.get('/api/routeInfo', function (req, res) {
     var start = req.query.start;
     var destination = req.query.destination;
+    console.log('params: ', req.query);
+    console.log('start: ', start);
+    console.log('destination: ', destination);
     if (!(start && destination)) {
       res.status(400).send('Missing parameters');
     }
@@ -296,7 +300,9 @@ module.exports = function (app, passport) {
         // Dirty array comparison
         .uniqBy(function (tuple) {
           return JSON.stringify(tuple);
-        });
+        })
+        .value();
+        console.log('Checkpoints: ', decompressedPoints);
         res.send(decompressedPoints);
       });
     });
