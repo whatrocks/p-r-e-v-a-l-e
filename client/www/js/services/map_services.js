@@ -94,14 +94,14 @@ angular.module('prevale.mapServices', [])
 })
 .factory('RenderMap', function($rootScope) {
 
-    var zoom;
+    var zoomLevel;
     var currentPosition;
     var map;
     var layer;
     L.mapbox.accessToken = mapboxAccessToken;    
     
     var mapInit = function() {
-        zoom = 16;
+        zoomLevel = 16;
         // TODO: style our maps
         layer = L.TileLayer
         .maskCanvas({
@@ -144,11 +144,17 @@ angular.module('prevale.mapServices', [])
     var centerView = function() {
         console.log("Center View!!");
         console.log("currentPos:", currentPosition);
-        map.setView(currentPosition, 16);
+        map.setView(currentPosition, zoomLevel);
+    };
+
+    var handleZoom = function() {
+        zoomLevel = ( zoomLevel === 16 ) ? 14 : 16;
+        centerView(); 
     };
 
     return {
         mapInit: mapInit,
+        handleZoom: handleZoom,
         renderLayer: renderLayer,
         centerView: centerView
     };  
