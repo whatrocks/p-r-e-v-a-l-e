@@ -152,13 +152,20 @@ angular.module('prevale.mapServices', [])
         centerView();
     };
 
+    var LeafIcon = L.Icon.extend({
+    options: {
+        iconSize:     [38, 95],
+        }
+    });
+
+    var greenIcon = new LeafIcon({iconUrl: 'img/prevale-arrow.png'});
 
     var displayMarkers = function (markerArr) {
       for (var i = 0; i < markerArr.length; i++) {
         var marker = markerArr[i];
         var latlng = new L.latLng(marker[1], marker[0]);
         var newPoint = L.marker(latlng, {
-            icon: L.mapbox.marker.icon({'marker-symbol': 'post', 'marker-color': '0044FF'}),
+            icon: L.mapbox.marker.icon({greenIcon}),
             title: 'TEST'
         }).addTo(map)
       };
@@ -167,7 +174,7 @@ angular.module('prevale.mapServices', [])
     var displayGoal = function (waypoint) {
         var latlng = new L.latLng(waypoint[0], waypoint[1]);
         var newPoint = L.marker(latlng, {
-            icon: L.mapbox.marker.icon({'marker-symbol': 'post', 'marker-color': '0044FF'}),
+            icon: L.mapbox.marker.icon({greenIcon}),
             title: 'TEST'
         }).addTo(map)
         // newPoint.setLatLng(latlng);

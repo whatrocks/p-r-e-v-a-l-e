@@ -286,7 +286,8 @@ module.exports = function (app, passport) {
         form: {
           f: 'json',
           token: token,
-          stops: start + ';' + destination
+          stops: start + ';' + destination,
+          outputGeometryPrecision: 20
         }
       }, function(error, response, body){
         var directions = body.directions[0].features;
