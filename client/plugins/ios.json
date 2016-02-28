@@ -15,6 +15,12 @@
         },
         "cordova-plugin-geolocation": {
             "PACKAGE_NAME": "com.ionicframework.prevale712590"
+        },
+        "cordova-plugin-apiai": {
+            "PACKAGE_NAME": "com.ionicframework.prevale712590"
+        },
+        "cordova-plugin-tts": {
+            "PACKAGE_NAME": "com.ionicframework.prevale712590"
         }
     },
     "dependent_plugins": {}

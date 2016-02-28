@@ -40,6 +40,36 @@ module.exports = [
         "clobbers": [
             "navigator.geolocation"
         ]
+    },
+    {
+        "file": "plugins/cordova-plugin-apiai/www/lib/q.js",
+        "id": "cordova-plugin-apiai.Q",
+        "pluginId": "cordova-plugin-apiai",
+        "runs": true
+    },
+    {
+        "file": "plugins/cordova-plugin-apiai/www/ApiAIPlugin.js",
+        "id": "cordova-plugin-apiai.ApiAIPlugin",
+        "pluginId": "cordova-plugin-apiai",
+        "clobbers": [
+            "window.ApiAIPlugin"
+        ]
+    },
+    {
+        "file": "plugins/cordova-plugin-apiai/www/ApiAIPromises.js",
+        "id": "cordova-plugin-apiai.ApiAIPromises",
+        "pluginId": "cordova-plugin-apiai",
+        "clobbers": [
+            "window.ApiAIPromises"
+        ]
+    },
+    {
+        "file": "plugins/cordova-plugin-tts/www/tts.js",
+        "id": "cordova-plugin-tts.tts",
+        "pluginId": "cordova-plugin-tts",
+        "clobbers": [
+            "TTS"
+        ]
     }
 ];
 module.exports.metadata = 

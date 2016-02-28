@@ -24,6 +24,22 @@ angular.module('starter',
       StatusBar.styleDefault();
     }
   });
+  ionic.Platform.ready(function(){
+    window.ApiAIPlugin.init(
+      {
+        subscriptionKey: "b9278114-95c6-47a2-ad1e-0aea37b93a48 ", // insert your subscription key here
+        clientAccessToken: "8ff31d1639384d6c9d9332926322b2bf", // insert your client access key here
+        lang: "en" // set lang tag from list of supported languages
+      },
+      function(result) { console.log('API.AI: initialition OK') },
+      function(error) { /* error processing */ }
+    );
+    window.ApiAIPlugin.setListeningFinishCallback(
+      function(){
+        $ionicLoading.hide();
+      }
+    );
+   });
 })
 
 .config(function($stateProvider, $urlRouterProvider) {

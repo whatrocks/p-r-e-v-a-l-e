@@ -152,11 +152,39 @@ angular.module('prevale.mapServices', [])
         centerView(); 
     };
 
+    var displayMarkers = function (markerArr) {
+      for (var i = 0; i < markerArr.length; i++) {
+        L.marker(markerArr[i].coords)
+          .bindPopup (
+            '<h1>' + markerArr[i].title + '</h1>' +
+            '<div>' + markerArr[i].description + '</div>'
+            )
+          .addTo(map)
+      };
+    };
+    var displayGoal = function (waypoint) {
+        var latlng = new L.latLng(waypoint[0], waypoint[1]);
+        var newPoint = L.marker(latlng, {
+            icon: L.mapbox.marker.icon({'marker-symbol': 'post', 'marker-color': '0044FF'}),
+            title: 'TEST'
+        }).addTo(map)
+        // newPoint.setLatLng(latlng);
+        // map.setView(newPoint.getLatLng(),map.getZoom());
+        // alert('Marker has been set to position :'+newPoint.getLatLng().toString());
+          // .bindPopup (
+          //   '<h1>' + marker.title + '</h1>' +
+          //   '<div>' + marker.description + '</div>'
+          //   )
+          // .addTo(map)
+    };
+
     return {
         mapInit: mapInit,
         handleZoom: handleZoom,
         renderLayer: renderLayer,
-        centerView: centerView
+        centerView: centerView,
+        displayMarkers: displayMarkers,
+        displayGoal: displayGoal,
     };  
 });
 

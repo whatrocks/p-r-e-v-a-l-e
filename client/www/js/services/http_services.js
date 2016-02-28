@@ -37,6 +37,16 @@ angular.module('prevale.httpServices', [])
     });
   };
 
+  var sendVoice = function(currentLocation, keyword, cb) {
+     return $http({
+       method: 'GET',
+       url: 'http:/127.0.0.1:3000/api/destinationSearch?currentLocation=' + currentLocation + '&keyword=' + keyword
+     })
+     .then(function(response) {
+       cb(response);
+     });
+   };
+
   return {
     createJourney: createJourney,
     getWaypoints: getWaypoints,

@@ -1,3 +1,6 @@
 {
-    "CoreLocation.framework": 1
+    "CoreLocation.framework": 1,
+    "Security.framework": 1,
+    "Foundation.framework": 1,
+    "CoreAudio.framework": 1
 }

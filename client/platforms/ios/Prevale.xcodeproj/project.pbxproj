@@ -18,6 +18,12 @@
 		06CD9D6EC982480E99FF0550 /* CDVInAppBrowser.m in Sources */ = {isa = PBXBuildFile; fileRef = AE97F36802C74A848DB15AEA /* CDVInAppBrowser.m */; };
 		A5B309C9A13D4D7D93EF270A /* CDVLocation.m in Sources */ = {isa = PBXBuildFile; fileRef = FAE8C006A62F4678BB708F1E /* CDVLocation.m */; };
 		7BF682252FC345F4A3933F8C /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5C51DD468E6E456885926F05 /* CoreLocation.framework */; };
+		2E471F5403C84C1A86AEA4EF /* ApiAIPlugin.m in Sources */ = {isa = PBXBuildFile; fileRef = 03CF68CD21604D508905EAC1 /* ApiAIPlugin.m */; settings = {COMPILER_FLAGS = "-std=gnu99 -fmodules"; }; };
+		02E9DFB6FD4B4D79B014151F /* libApiAI.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 97524258E47C44E6ABC97195 /* libApiAI.a */; };
+		F6F40425A5DF49C78605960B /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 40A3C1F3903C4EE4A3AC6F45 /* Security.framework */; };
+		86C32951646F43FB8667B1FF /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E6CE509A780049348F77207B /* Foundation.framework */; };
+		DCEB550D6180404B99211249 /* CoreAudio.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5440BFC635AD47098326CEF2 /* CoreAudio.framework */; };
+		EE2B324897D44B5EB7A6BEB3 /* CDVTTS.m in Sources */ = {isa = PBXBuildFile; fileRef = 428E6096F1EC4BF99A5409B7 /* CDVTTS.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -62,6 +68,24 @@
 		FAE8C006A62F4678BB708F1E /* CDVLocation.m */ = {isa = PBXFileReference; name = "CDVLocation.m"; path = "cordova-plugin-geolocation/CDVLocation.m"; sourceTree = "<group>"; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; explicitFileType = undefined; includeInIndex = 0; };
 		06820798BCE54670A4585DD8 /* CDVLocation.h */ = {isa = PBXFileReference; name = "CDVLocation.h"; path = "cordova-plugin-geolocation/CDVLocation.h"; sourceTree = "<group>"; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; explicitFileType = undefined; includeInIndex = 0; };
 		5C51DD468E6E456885926F05 /* CoreLocation.framework */ = {isa = PBXFileReference; name = "CoreLocation.framework"; path = "System/Library/Frameworks/CoreLocation.framework"; sourceTree = SDKROOT; fileEncoding = undefined; lastKnownFileType = wrapper.framework; explicitFileType = undefined; includeInIndex = 0; };
+		03CF68CD21604D508905EAC1 /* ApiAIPlugin.m */ = {isa = PBXFileReference; name = "ApiAIPlugin.m"; path = "cordova-plugin-apiai/ApiAIPlugin.m"; sourceTree = "<group>"; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; explicitFileType = undefined; includeInIndex = 0; };
+		97524258E47C44E6ABC97195 /* libApiAI.a */ = {isa = PBXFileReference; name = "libApiAI.a"; path = "Prevale/Plugins/cordova-plugin-apiai/libApiAI.a"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = archive.ar; explicitFileType = undefined; includeInIndex = 0; };
+		0DDF3BF44F754A4D81831178 /* ApiAI.h */ = {isa = PBXFileReference; name = "ApiAI.h"; path = "cordova-plugin-apiai/ApiAI.h"; sourceTree = "<group>"; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; explicitFileType = undefined; includeInIndex = 0; };
+		28C778E623254D788F3BF242 /* AIRequest.h */ = {isa = PBXFileReference; name = "AIRequest.h"; path = "cordova-plugin-apiai/AIRequest.h"; sourceTree = "<group>"; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; explicitFileType = undefined; includeInIndex = 0; };
+		03B0B5B6065B49F8929945CF /* AITextRequest.h */ = {isa = PBXFileReference; name = "AITextRequest.h"; path = "cordova-plugin-apiai/AITextRequest.h"; sourceTree = "<group>"; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; explicitFileType = undefined; includeInIndex = 0; };
+		DEFCAF5E9D5B4149A8055124 /* AIVoiceRequest.h */ = {isa = PBXFileReference; name = "AIVoiceRequest.h"; path = "cordova-plugin-apiai/AIVoiceRequest.h"; sourceTree = "<group>"; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; explicitFileType = undefined; includeInIndex = 0; };
+		597D9FB4251F47DC883BA69E /* AIConfiguration.h */ = {isa = PBXFileReference; name = "AIConfiguration.h"; path = "cordova-plugin-apiai/AIConfiguration.h"; sourceTree = "<group>"; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; explicitFileType = undefined; includeInIndex = 0; };
+		B73C8F5DD085455B98B38794 /* AIDefaultConfiguration.h */ = {isa = PBXFileReference; name = "AIDefaultConfiguration.h"; path = "cordova-plugin-apiai/AIDefaultConfiguration.h"; sourceTree = "<group>"; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; explicitFileType = undefined; includeInIndex = 0; };
+		13C6A1D37AA64371850BFCC8 /* AIRequestEntity.h */ = {isa = PBXFileReference; name = "AIRequestEntity.h"; path = "cordova-plugin-apiai/AIRequestEntity.h"; sourceTree = "<group>"; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; explicitFileType = undefined; includeInIndex = 0; };
+		3A851315C91B449882EBB47F /* AIRequestEntry.h */ = {isa = PBXFileReference; name = "AIRequestEntry.h"; path = "cordova-plugin-apiai/AIRequestEntry.h"; sourceTree = "<group>"; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; explicitFileType = undefined; includeInIndex = 0; };
+		EB5A00219333450DB6FB5488 /* AINullabilityDefines.h */ = {isa = PBXFileReference; name = "AINullabilityDefines.h"; path = "cordova-plugin-apiai/AINullabilityDefines.h"; sourceTree = "<group>"; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; explicitFileType = undefined; includeInIndex = 0; };
+		DCDE30DB0A914C3D95752EF7 /* AIRequestContext.h */ = {isa = PBXFileReference; name = "AIRequestContext.h"; path = "cordova-plugin-apiai/AIRequestContext.h"; sourceTree = "<group>"; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; explicitFileType = undefined; includeInIndex = 0; };
+		775E87BEAAA047D69EFF8930 /* ApiAIPlugin.h */ = {isa = PBXFileReference; name = "ApiAIPlugin.h"; path = "cordova-plugin-apiai/ApiAIPlugin.h"; sourceTree = "<group>"; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; explicitFileType = undefined; includeInIndex = 0; };
+		40A3C1F3903C4EE4A3AC6F45 /* Security.framework */ = {isa = PBXFileReference; name = "Security.framework"; path = "System/Library/Frameworks/Security.framework"; sourceTree = SDKROOT; fileEncoding = undefined; lastKnownFileType = wrapper.framework; explicitFileType = undefined; includeInIndex = 0; };
+		E6CE509A780049348F77207B /* Foundation.framework */ = {isa = PBXFileReference; name = "Foundation.framework"; path = "System/Library/Frameworks/Foundation.framework"; sourceTree = SDKROOT; fileEncoding = undefined; lastKnownFileType = wrapper.framework; explicitFileType = undefined; includeInIndex = 0; };
+		5440BFC635AD47098326CEF2 /* CoreAudio.framework */ = {isa = PBXFileReference; name = "CoreAudio.framework"; path = "System/Library/Frameworks/CoreAudio.framework"; sourceTree = SDKROOT; fileEncoding = undefined; lastKnownFileType = wrapper.framework; explicitFileType = undefined; includeInIndex = 0; };
+		428E6096F1EC4BF99A5409B7 /* CDVTTS.m */ = {isa = PBXFileReference; name = "CDVTTS.m"; path = "cordova-plugin-tts/CDVTTS.m"; sourceTree = "<group>"; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; explicitFileType = undefined; includeInIndex = 0; };
+		CF9456641C7F4B80A7241F21 /* CDVTTS.h */ = {isa = PBXFileReference; name = "CDVTTS.h"; path = "cordova-plugin-tts/CDVTTS.h"; sourceTree = "<group>"; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; explicitFileType = undefined; includeInIndex = 0; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -71,6 +95,10 @@
 			files = (
 				301BF552109A68D80062928A /* libCordova.a in Frameworks */,
 				7BF682252FC345F4A3933F8C /* CoreLocation.framework in Frameworks */,
+				02E9DFB6FD4B4D79B014151F /* libApiAI.a in Frameworks */,
+				F6F40425A5DF49C78605960B /* Security.framework in Frameworks */,
+				86C32951646F43FB8667B1FF /* Foundation.framework in Frameworks */,
+				DCEB550D6180404B99211249 /* CoreAudio.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -141,6 +169,10 @@
 			isa = PBXGroup;
 			children = (
 				5C51DD468E6E456885926F05 /* CoreLocation.framework */,
+				97524258E47C44E6ABC97195 /* libApiAI.a */,
+				40A3C1F3903C4EE4A3AC6F45 /* Security.framework */,
+				E6CE509A780049348F77207B /* Foundation.framework */,
+				5440BFC635AD47098326CEF2 /* CoreAudio.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -170,6 +202,20 @@
 				BDB2D0B791934F3987F89D5B /* CDVInAppBrowser.h */,
 				FAE8C006A62F4678BB708F1E /* CDVLocation.m */,
 				06820798BCE54670A4585DD8 /* CDVLocation.h */,
+				03CF68CD21604D508905EAC1 /* ApiAIPlugin.m */,
+				0DDF3BF44F754A4D81831178 /* ApiAI.h */,
+				28C778E623254D788F3BF242 /* AIRequest.h */,
+				03B0B5B6065B49F8929945CF /* AITextRequest.h */,
+				DEFCAF5E9D5B4149A8055124 /* AIVoiceRequest.h */,
+				597D9FB4251F47DC883BA69E /* AIConfiguration.h */,
+				B73C8F5DD085455B98B38794 /* AIDefaultConfiguration.h */,
+				13C6A1D37AA64371850BFCC8 /* AIRequestEntity.h */,
+				3A851315C91B449882EBB47F /* AIRequestEntry.h */,
+				EB5A00219333450DB6FB5488 /* AINullabilityDefines.h */,
+				DCDE30DB0A914C3D95752EF7 /* AIRequestContext.h */,
+				775E87BEAAA047D69EFF8930 /* ApiAIPlugin.h */,
+				428E6096F1EC4BF99A5409B7 /* CDVTTS.m */,
+				CF9456641C7F4B80A7241F21 /* CDVTTS.h */,
 			);
 			name = Plugins;
 			path = "Prevale/Plugins";
@@ -286,6 +332,8 @@
 				302D95F114D2391D003F00A1 /* MainViewController.m in Sources */,
 				06CD9D6EC982480E99FF0550 /* CDVInAppBrowser.m in Sources */,
 				A5B309C9A13D4D7D93EF270A /* CDVLocation.m in Sources */,
+				2E471F5403C84C1A86AEA4EF /* ApiAIPlugin.m in Sources */,
+				EE2B324897D44B5EB7A6BEB3 /* CDVTTS.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -319,6 +367,10 @@
 				INFOPLIST_FILE = "Prevale/Prevale-Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "@executable_path/Frameworks";
 				PRODUCT_NAME = "Prevale";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/Prevale/Plugins/cordova-plugin-apiai\"",
+				);
 			};
 			name = Debug;
 		};
@@ -338,6 +390,10 @@
 				GCC_VERSION = "";
 				INFOPLIST_FILE = "Prevale/Prevale-Info.plist";
 				PRODUCT_NAME = "Prevale";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/Prevale/Plugins/cordova-plugin-apiai\"",
+				);
 			};
 			name = Release;
 		};

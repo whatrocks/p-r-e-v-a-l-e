@@ -15,6 +15,14 @@
                         {
                             "xml": "<feature name=\"Geolocation\"><param name=\"ios-package\" value=\"CDVLocation\" /></feature>",
                             "count": 1
+                        },
+                        {
+                            "xml": "<feature name=\"ApiAIPlugin\"><param name=\"ios-package\" value=\"ApiAIPlugin\" /></feature>",
+                            "count": 1
+                        },
+                        {
+                            "xml": "<feature name=\"TTS\"><param name=\"ios-package\" value=\"CDVTTS\" /></feature>",
+                            "count": 1
                         }
                     ]
                 }
@@ -39,6 +47,12 @@
             "PACKAGE_NAME": "com.ionicframework.prevale712590"
         },
         "cordova-plugin-geolocation": {
+            "PACKAGE_NAME": "com.ionicframework.prevale712590"
+        },
+        "cordova-plugin-apiai": {
+            "PACKAGE_NAME": "com.ionicframework.prevale712590"
+        },
+        "cordova-plugin-tts": {
             "PACKAGE_NAME": "com.ionicframework.prevale712590"
         }
     },
@@ -83,6 +97,36 @@
             "pluginId": "cordova-plugin-geolocation",
             "clobbers": [
                 "navigator.geolocation"
+            ]
+        },
+        {
+            "file": "plugins/cordova-plugin-apiai/www/lib/q.js",
+            "id": "cordova-plugin-apiai.Q",
+            "pluginId": "cordova-plugin-apiai",
+            "runs": true
+        },
+        {
+            "file": "plugins/cordova-plugin-apiai/www/ApiAIPlugin.js",
+            "id": "cordova-plugin-apiai.ApiAIPlugin",
+            "pluginId": "cordova-plugin-apiai",
+            "clobbers": [
+                "window.ApiAIPlugin"
+            ]
+        },
+        {
+            "file": "plugins/cordova-plugin-apiai/www/ApiAIPromises.js",
+            "id": "cordova-plugin-apiai.ApiAIPromises",
+            "pluginId": "cordova-plugin-apiai",
+            "clobbers": [
+                "window.ApiAIPromises"
+            ]
+        },
+        {
+            "file": "plugins/cordova-plugin-tts/www/tts.js",
+            "id": "cordova-plugin-tts.tts",
+            "pluginId": "cordova-plugin-tts",
+            "clobbers": [
+                "TTS"
             ]
         }
     ]

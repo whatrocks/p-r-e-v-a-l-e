@@ -1,5 +1,5 @@
 angular.module('prevale.mapController', [])
-.controller('MapController', function($scope, $window, RenderMap, Waypoints, CoordinateFilter, $interval){
+.controller('MapController', function($scope, $window, RenderMap, Waypoints, CoordinateFilter, $interval, $ionicLoading){
 
   console.log("My initial journey is: ", window.localStorage.getItem('initialJourney-id'));
 
@@ -7,7 +7,7 @@ angular.module('prevale.mapController', [])
 
   var waypoints;
   var initRender = true;
-
+  $scope.currentPosition;
   RenderMap.mapInit();
 
   if ( window.localStorage.getItem('waypoints') ) {
@@ -42,7 +42,7 @@ angular.module('prevale.mapController', [])
     waypoints = JSON.parse(window.localStorage.getItem('waypoints'));
     
     navigator.geolocation.watchPosition(function(position) {   
-      
+      $scope.currentPosition = [ position.coords.latitude, position.coords.longitude];
       console.log("I'm in the navigator: ", position);   
       
       if (initRender) {
@@ -63,5 +63,50 @@ angular.module('prevale.mapController', [])
     }, positionOptions);
 
   });
+
+  $scope.data = [];
+  $scope.voiceCommand = function (){
+  $ionicLoading.show({
+    template: '<ion-spinner icon="lines"></ion-spinner><br>You can speak to me ! ...'
+  });
+  ionic.Platform.ready(function(){
+    try {
+      window.ApiAIPlugin.requestVoice(
+        {}, // empty for simple requests, some optional parameters can be here
+        function (response) {
+          // place your result processing here
+          // alert(JSON.stringify(response));
+          TTS
+            .speak({
+                text: response.result.speech,
+                locale: 'en-GB',
+                rate: 1.7
+            }, function () { alert("success");
+          },
+          function (reason) {
+          });
+            var keyword = response.result.parameters.locations;
+            Waypoints.sendVoice(currentPosition, keyword, function(result) {
+              // alert(JSON.stringify(result));
+              var markers = [result.data.location.lat, result.data.location.lng];
+              RenderMap.displayGoal(markers);
+            })
+            // alert(JSON.stringify(response.result.metadata.html));
+          if(response.result.metadata.html) {
+            $scope.data = response.result.metadata.html;
+            $scope.data = response.result.metadata.html;
+          }
+          $ionicLoading.hide();
+        },
+        function (error) {
+          // place your error processing here
+          alert("THERE'S AN ERROR" + error);
+          $ionicLoading.hide();
+        });
+      } catch (e) {
+        alert(e);
+      }
+    });
+  };
 
 });
