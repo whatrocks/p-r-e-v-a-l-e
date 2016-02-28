@@ -1,0 +1,35 @@
+{
+  "name": "cordova-plugin-apiai",
+  "version": "1.5.4",
+  "description": "Plugin makes it easy to integrate your Cordova application with https://api.ai natural language processing service.",
+  "cordova": {
+    "id": "cordova-plugin-apiai",
+    "platforms": [
+      "ios",
+      "android"
+    ]
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/api-ai/api-ai-cordova.git"
+  },
+  "keywords": [
+    "language processing",
+    "voice recognition",
+    "ecosystem:cordova",
+    "cordova-ios",
+    "cordova-android"
+  ],
+  "engines": [
+    {
+      "name": "cordova",
+      "version": ">=5.0.0"
+    }
+  ],
+  "author": "api.ai",
+  "license": "Apache 2.0 License",
+  "bugs": {
+    "url": "https://github.com/api-ai/api-ai-cordova/issues"
+  },
+  "homepage": "https://github.com/api-ai/api-ai-cordova#readme"
+}

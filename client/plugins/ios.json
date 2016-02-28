@@ -7,10 +7,28 @@
         "files": {}
     },
     "installed_plugins": {
-        "cordova-plugin-inappbrowser": {
+        "cordova-plugin-device": {
+            "PACKAGE_NAME": "com.ionicframework.prevale712590"
+        },
+        "cordova-plugin-console": {
             "PACKAGE_NAME": "com.ionicframework.prevale712590"
         },
         "cordova-plugin-whitelist": {
+            "PACKAGE_NAME": "com.ionicframework.prevale712590"
+        },
+        "cordova-plugin-splashscreen": {
+            "PACKAGE_NAME": "com.ionicframework.prevale712590"
+        },
+        "cordova-plugin-statusbar": {
+            "PACKAGE_NAME": "com.ionicframework.prevale712590"
+        },
+        "ionic-plugin-keyboard": {
+            "PACKAGE_NAME": "com.ionicframework.prevale712590"
+        },
+        "cordova-plugin-apiai": {
+            "PACKAGE_NAME": "com.ionicframework.prevale712590"
+        },
+        "cordova-plugin-tts": {
             "PACKAGE_NAME": "com.ionicframework.prevale712590"
         }
     },
