@@ -217,20 +217,32 @@ module.exports = function (app, passport) {
   app.get('/api/destinationSearch', function (req, res) {
     var currentLocation = req.query.currentLocation;
     var keyword = req.query.keyword;
-    if (!(currentLocation && keyword)) {
+    var distance = req.query.distance;
+
+    if (!(currentLocation && keyword && distance)) {
       res.send(400);
     }
-
-    var baseUrl = 'https://api.foursquare.com/v2/venues/explore?client_id=' + config.foursquare.clientID  + '&client_secret=' + config.foursquare.clientSecret;
-    var fullQuery = baseUrl + '&ll=' + currentLocation + '&query=' + keyword + '&v=20160227&m=foursquare';
-
     request({
       method: 'GET',
-      uri: fullQuery,
-      json: true
+      uri: 'https://api.foursquare.com/v2/venues/explore',
+      json: true,
+      qs: {
+        client_id: config.foursquare.clientID,
+        client_secret: config.foursquare.clientSecret,
+        ll: currentLocation,
+        query: keyword,
+        v: '20160227',
+        m: 'foursquare',
+        radius: distance + 200
+      }
     }, function (error, resp, body) {
       if (!error && resp.statusCode == 200) {
-        var topResult = body.response.groups[0].items[0].venue;
+        // Filter - greater than half a mile, less than 3
+        var lowerBound = distance - 1600 < 0 ? 0 : distance - 1600;
+        var topResult = _.find(body.response.groups[0].items,
+          function (item) {
+            return item.venue.location.distance >= lowerBound;
+          });
         res.send(topResult);
       }
     });
@@ -244,11 +256,11 @@ module.exports = function (app, passport) {
         url: 'https://www.arcgis.com/sharing/rest/oauth2/token/',
         json:true,
         form: {
-          'f': 'json',
-          'client_id': config.arcgis.clientID,
-          'client_secret': config.arcgis.clientSecret,
-          'grant_type': 'client_credentials',
-          'expiration': '1440'
+          f: 'json',
+          client_id: config.arcgis.clientID,
+          client_secret: config.arcgis.clientSecret,
+          grant_type: 'client_credentials',
+          expiration: '1440'
         }
       }, function(error, response, body){
         callback(body.access_token);
