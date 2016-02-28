@@ -6,14 +6,15 @@ module.exports = function (app, passport) {
 
   // Create a new user
   app.post('/api/users/create', function (req, res) {
-    console.log('req:', req );
-    console.log('body: ', req.body);
-    var username = req.body.username;
-    var password = req.body.password;
+    var user = req.body;
+    if (!(username && password)) {
+      res.send(400);
+    }
+    user.createdAt = r.now();
 
     r
     .table('users')
-    .getAll(username, {index: 'username'})
+    .getAll(user.username, {index: 'username'})
     .run(r.conn)
     .then(function (cursor) {
       return cursor.toArray()
@@ -22,7 +23,7 @@ module.exports = function (app, passport) {
           res.status(409).send('User already exists');
         } else {
           return r.table('users')
-          .insert({username: username, password: password}, {returnChanges: true})
+          .insert(user, {returnChanges: true})
           .run(r.conn)
           .then(function (response) {
             res.status(201).send(response.changes[0].new_val);
@@ -41,6 +42,9 @@ module.exports = function (app, passport) {
     var username = req.body.username;
     var password = req.body.password;
 
+    if (!(username && password)) {
+      res.send(400);
+    }
     r
     .table('users')
     .getAll(username, {index: 'username'})
@@ -67,9 +71,13 @@ module.exports = function (app, passport) {
 
   // Create a journey
   app.post('/api/journeys/create', function (req, res) {
-
     var journey = req.body;
-    journey.user = 'name';
+    if (!journey) {
+      res.send(400);
+    }
+    journey.createdAt = r.now();
+    journey.coordinates = [];
+
     r
       .table('journeys')
       .insert(journey)
@@ -81,6 +89,10 @@ module.exports = function (app, passport) {
       })
       .then(function (newJourney) {
         res.json(newJourney);
+      })
+      .catch(function (err) {
+        console.log('Error creating journey: ', err);
+        res.send(err);
       });
   });
 
@@ -88,19 +100,52 @@ module.exports = function (app, passport) {
   app.post('/api/journeys/addTo', function (req, res) {
     var id = req.body.id;
     var newCoords = req.body.coords;
+    if (!(id && newCoords)) {
+      res.send(400);
+    }
 
     r
       .table('journeys')
-      .get(id)
-      .update({coordinates: r.row('coordinates').append(newCoords)})
+      .get(id)('coordinates')
+      .setUnion(newCoords)
       .run(r.conn)
-      .then(function (response) {
+      .then(function (union) {
         return r.table('journeys')
-          .get(response.generated_keys[0])
+          .get(id)
+          .update({coordinates: union})
           .run(r.conn);
       })
-      .then(function (changes) {
-        res.json(changes)
+      .then(function (results) {
+        if (results) {
+          res.send(200)
+        }
+      })
+      .catch(function (err) {
+        console.log('Error updating journey', err);
+        res.send(err);
+      });
+  });
+
+  app.get('/api/journeys/:id', function (req, res) {
+    var journeyId = req.params.id;
+    if (!(journeyId)) {
+      res.send(400);
+    }
+
+    r
+      .table('journeys')
+      .get(journeyId)
+      .run(r.conn)
+      .then(function (response) {
+        if (response) {
+          res.json(response);
+        } else {
+          res.status(404).send('A journey with that id was not found')
+        }
+      })
+      .catch(function (err) {
+        console.log('Error getting journey: ', err);
+        res.send(err);
       });
   });
 
