@@ -1,7 +1,7 @@
 # p-r-e-v-a-l-e
 Prevale is a fog-of-war running app built at the LAUNCH Hackathon 2016 in San Francisco, CA.
 
-<img src="./img/logo.png">
+<img src="./img/prevale-logo.png">
 
 ## Screenshots
 <img src="./img/run1.png">
